@@ -24,8 +24,7 @@ body {
  width: 100px;
 }
 
-/* .container {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-} */
+.weather-icon {
+  width: 100px;
+  height: 100px;
+}
