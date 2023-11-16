@@ -4,11 +4,20 @@ import axios from 'axios'
 const Weather = () => {
   const [location, setLocation] = useState('')
   const [weatherData, setWeatherData] = useState(null)
+  const [viewMode, setViewMode] = useState('daily') // Default view mode is 'daily'
   const API_KEY = '237c55e13ccd467290e170801231411'
 
   const handleSubmit = () => {
     const userSearch = document.querySelector('input').value
     setLocation(userSearch || '')
+  }
+
+  const handleDailyClick = () => {
+    setViewMode('daily')
+  }
+
+  const handleHourlyClick = () => {
+    setViewMode('hourly')
   }
 
   useEffect(() => {
@@ -36,7 +45,7 @@ const Weather = () => {
         </p>
       )}
       {weatherData && (
-        <div>
+        <div className="current-weather-container">
           <p>
             {weatherData.current.temp_c}°C -{' '}
             {weatherData.current.condition.text}
@@ -48,34 +57,66 @@ const Weather = () => {
         </div>
       )}
 
+      <h2>Forecast</h2>
       <div>
-        <h4>Next 7 days</h4>
-        {weatherData &&
-          weatherData.forecast &&
-          weatherData.forecast.forecastday && (
-            <div className='forecast-days-container'>
-              {weatherData.forecast.forecastday.map((day) => {
-                const dateObject = new Date(day.date)
-                const dayOfWeek = dateObject.toLocaleDateString('en-US', {
-                  weekday: 'short',
-                })
-                const dayOfMonth = dateObject.getDate()
+        <button onClick={handleDailyClick}>Daily</button>
+        <button onClick={handleHourlyClick}>Hourly</button>
+      </div>
 
-                return (
-                  <div className=""key={day.date}>
-                    <ul>
-                      <li>
-                        {`${dayOfWeek} ${dayOfMonth}`}
-                        <img src={day.day.condition.icon} />
-                        <span>{day.day.avgtemp_c}°C</span>
-                      </li>
-                    </ul>
-                  </div>
-                )
-              })}
-            </div>
-          )}
-          <p>you can put a button somewhere to switch to farenheit</p>
+      <div>
+        {viewMode === 'daily' && (
+          <>
+            <h4>Next 7 days</h4>
+            {weatherData &&
+              weatherData.forecast &&
+              weatherData.forecast.forecastday && (
+                <div className='forecast-days-container'>
+                  {weatherData.forecast.forecastday.map((day) => {
+                    const dateObject = new Date(day.date)
+                    const dayOfWeek = dateObject.toLocaleDateString('en-US', {
+                      weekday: 'short',
+                    })
+                    const dayOfMonth = dateObject.getDate()
+
+                    return (
+                      <div className='' key={day.date}>
+                        <ul>
+                          <li>
+                            {`${dayOfWeek} ${dayOfMonth}`}
+                            <img src={day.day.condition.icon} alt='icon' />
+                            <span>{day.day.avgtemp_c}°C</span>
+                          </li>
+                        </ul>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+          </>
+        )}
+
+        {viewMode === 'hourly' && (
+          <div>
+          <h4>24 hours</h4>
+            <ul className='hourly-container'>
+              {weatherData &&
+                weatherData.forecast.forecastday.map((day, index) => {
+                  if (index === 0) {
+                    return day.hour.map((eachHour, index) => {
+                      const hourOnly = eachHour.time.split(' ')[1].slice(0, 5)
+                      return (
+                        <div className="hour-block" key={eachHour[index]}>
+                          <li>{hourOnly}</li>
+                          <img src={eachHour.condition.icon}/>
+                          <span>{eachHour.temp_c} °C</span>
+                          </div>
+                      ) 
+                      })
+                  }
+                })}
+            </ul>
+          </div>
+        )}
       </div>
     </>
   )

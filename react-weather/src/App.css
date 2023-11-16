@@ -7,6 +7,13 @@
   font-size: 2rem;
   color: rgb(163, 163, 163);
 }
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .main-search-box {
   width: 400px;
   height: 300px;
@@ -25,11 +32,34 @@
   width: 100px;
   height: 100px;
 }
-
+.current-weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .forecast-days-container {
   display: flex;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 65vw;
+  justify-content: space-evenly;
 }
 .forecast-days-container li {
   display: flex;
   flex-direction: column;
+}
+.hourly-container {
+  display: flex;
+  width: 65vw;
+  justify-content: space-evenly;
+  overflow-x: scroll;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.hour-block {
+  display: flex;
+    flex-direction: column;
+    margin: 20px;
+    align-items: center;
+}
+.hour-block li {
+  list-style: none;
 }
