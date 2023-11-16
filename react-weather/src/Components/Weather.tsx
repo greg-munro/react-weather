@@ -15,7 +15,7 @@ const Weather = () => {
   useEffect(() => {
     if (location !== '') {
       axios
-        .get(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${location}&aqi=no`)
+        .get(`http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&aqi=no`)
         .then((response) => {
           console.log('data:', response.data);
           setWeatherData(response.data);
@@ -23,14 +23,6 @@ const Weather = () => {
         .catch((error) => console.error('Error fetching weather data:', error));
     }
   }, [location]);
-
-  let weatherIcon
-  if (weatherData?.current.condition.text === 'Partly cloudy' || weatherData?.current.condition.text === 'Overcast', weatherData?.current.condition.text === 'Cloudy') {
-    weatherIcon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Weather-overcast.svg/800px-Weather-overcast.svg.png'
-  }
-  if (weatherData?.current.condition.text === 'Clear' ||  weatherData?.current.condition.text === 'Sunny') {
-    weatherIcon = 'https://static-00.iconduck.com/assets.00/weather-clear-symbolic-icon-2048x2048-v4afvu7m.png'
-  }
 
   return (
     <div className='main-search-box'>
@@ -40,7 +32,7 @@ const Weather = () => {
       {weatherData && (
         <div>
           <p>{weatherData.current.temp_c}°C - {weatherData.current.condition.text}</p>
-          <img src={weatherIcon} className="weather-icon" />
+          <img src={weatherData.current.condition.icon} className="weather-icon" />
         </div>
       )}
     </div>
