@@ -12,6 +12,12 @@ const Weather = () => {
     setLocation(userSearch || '')
   }
 
+  const handleReturn = (event) => {
+    if (event.key === 'Enter') {
+      handleSubmit()
+    }
+  }
+
   const handleDailyClick = () => {
     setViewMode('daily')
   }
@@ -36,7 +42,7 @@ const Weather = () => {
 
   return (
     <>
-      <input type='text' placeholder='Enter location...' />
+      <input type='text' placeholder='Enter location...' onKeyDown={handleReturn} />
       <button onClick={handleSubmit}>Submit</button>
       {weatherData && (
         <p>
