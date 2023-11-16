@@ -25,10 +25,10 @@ const Weather = () => {
   }, [location]);
 
   let weatherIcon
-  if (weatherData?.current.condition.text === 'Partly cloudy' || 'Overcast') {
+  if (weatherData?.current.condition.text === 'Partly cloudy' || weatherData?.current.condition.text === 'Overcast', weatherData?.current.condition.text === 'Cloudy') {
     weatherIcon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Weather-overcast.svg/800px-Weather-overcast.svg.png'
   }
-  else if (weatherData?.current.condition.text === 'Clear' ||  'Sunny') {
+  if (weatherData?.current.condition.text === 'Clear' ||  weatherData?.current.condition.text === 'Sunny') {
     weatherIcon = 'https://static-00.iconduck.com/assets.00/weather-clear-symbolic-icon-2048x2048-v4afvu7m.png'
   }
 
@@ -36,10 +36,10 @@ const Weather = () => {
     <div className='main-search-box'>
       <input type='text' placeholder='Enter location...' />
       <button onClick={handleSubmit}>Submit</button>
-      <p>The weather in {location.charAt(0).toUpperCase() + location.slice(1)}, {weatherData?.location.country}</p>
+      {weatherData && <p>The weather in {location.charAt(0).toUpperCase() + location.slice(1)}, {weatherData?.location.country}</p>}
       {weatherData && (
         <div>
-          <p>{weatherData.current.temp_c}°C {weatherData.current.condition.text}</p>
+          <p>{weatherData.current.temp_c}°C - {weatherData.current.condition.text}</p>
           <img src={weatherIcon} className="weather-icon" />
         </div>
       )}
