@@ -21,6 +21,10 @@ const RainfallChart = ({ weatherData }) => {
       // Initialize ECharts and set options
       const rainChart = echarts.init(document.getElementById('rainfallChart'));
       const option = {
+        title: {
+          text: 'Expected rainfall (mm)'
+        },
+        color: ['#37A2FF'],
         xAxis: {
           type: 'category',
           boundaryGap: false,
@@ -29,11 +33,18 @@ const RainfallChart = ({ weatherData }) => {
         yAxis: {
           type: 'value',
         },
+        tooltip: {
+          trigger: 'axis', // Display tooltip when hovering over the series
+          axisPointer: {
+            type: 'cross', // Display a crosshair
+          },
+        },
         series: [
           {
             data: yAxis,
             type: 'line',
             areaStyle: {},
+            smooth: true
           },
         ],
       };
