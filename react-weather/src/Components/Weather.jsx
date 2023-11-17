@@ -95,7 +95,7 @@ const Weather = () => {
           <h4>Next 7 days</h4>
           <button onClick={handleRainfallClick}>Precipitation</button>
           <button>Wind</button>
-          {showRainfall && <RainfallChart />}
+          {showRainfall && <RainfallChart weatherData={weatherData} />}
           {weatherData.forecast &&
             weatherData.forecast.forecastday && (
               <div className='forecast-days-container'>
