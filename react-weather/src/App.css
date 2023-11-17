@@ -46,6 +46,7 @@
 .forecast-days-container li {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .hourly-container {
   display: flex;
@@ -62,4 +63,9 @@
 }
 .hour-block li {
   list-style: none;
+}
+#rainfallChart {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
 }
