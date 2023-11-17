@@ -23,8 +23,9 @@ const Weather = () => {
     }
   };
   const handleDailyClick = () => {
-    setDailyView((prevState) => !prevState);
+    setDailyView(true);
     setHourlyView(false);
+    setShowRainfall(false)
   };
   const handleHourlyClick = () => {
     setHourlyView((prevState) => !prevState);

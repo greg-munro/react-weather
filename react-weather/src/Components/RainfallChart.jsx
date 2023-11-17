@@ -24,7 +24,7 @@ const RainfallChart = ({ weatherData }) => {
         title: {
           text: 'Expected rainfall (mm)'
         },
-        color: ['#37A2FF'],
+        color: ['#2e7fc7'],
         xAxis: {
           type: 'category',
           boundaryGap: false,
