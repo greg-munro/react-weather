@@ -22,6 +22,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 .main-search-box {
   width: 400px;
