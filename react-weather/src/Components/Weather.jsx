@@ -68,11 +68,17 @@ const Weather = () => {
 
   return (
     <>
+     
+      <div className="form__group field">
       <input
-        type='text'
+        type='input'
+        className="form__field"
         placeholder='Enter location...'
+        id='name'
         onKeyDown={handleReturn}
       />
+  <label htmlFor="name" className="form__label">Enter location...</label>
+</div>
       <button onClick={handleSubmit}>Submit</button>
       {weatherData && (
         <p>
