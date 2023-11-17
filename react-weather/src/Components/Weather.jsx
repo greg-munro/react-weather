@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import RainfallChart from './RainfallChart'
+import LocationInputForm from './LocationInputForm'
 import {
   Menu,
   MenuButton,
@@ -68,18 +69,7 @@ const Weather = () => {
 
   return (
     <>
-     
-      <div className="form__group field">
-      <input
-        type='input'
-        className="form__field"
-        placeholder='Enter location...'
-        id='name'
-        onKeyDown={handleReturn}
-      />
-  <label htmlFor="name" className="form__label">Enter location...</label>
-</div>
-      <button onClick={handleSubmit}>Submit</button>
+      <LocationInputForm handleSubmit={handleSubmit} handleReturn={handleReturn} />
       {weatherData && (
         <p>
           The weather in {location.charAt(0).toUpperCase() + location.slice(1)},{' '}
@@ -125,7 +115,6 @@ const Weather = () => {
 
       {weatherData && dailyView && (
         <>
-          <h4>Next 7 days</h4>
           <Tabs>
             <TabList>
             <Tab onClick={handleConditionsClick}>Conditions</Tab>
@@ -169,26 +158,35 @@ const Weather = () => {
 
       {weatherData && hourlyView && (
         <div>
-          <h4>24 hours</h4>
           <ul className='hourly-container'>
             {weatherData.forecast &&
               weatherData.forecast.forecastday.map((day, index) => {
                 if (index === 0) {
+                  const currentTime = new Date();
                   return day.hour.map((eachHour, index) => {
-                    const hourOnly = eachHour.time.split(' ')[1].slice(0, 5)
-                    return (
-                      <div className='hour-block' key={eachHour[index]}>
-                        <li>{hourOnly}</li>
-                        <img src={eachHour.condition.icon} />
-                        <span>{eachHour.temp_c} °C</span>
-                      </div>
-                    )
-                  })
+                    const hourTime = new Date(eachHour.time);
+                    // Show only upcoming hours
+                    if (hourTime > currentTime) {
+                      const hourOnly = eachHour.time.split(' ')[1].slice(0, 5);
+                      return (
+                        <div className='hour-block' key={index}>
+                          <li>{hourOnly}</li>
+                          <img src={eachHour.condition.icon} alt='icon' />
+                          <span>{eachHour.temp_c} °C</span>
+                        </div>
+                      );
+                    }
+                    // Return null for hours that have already passed
+                    return null;
+                  });
                 }
+                // Return null for days other than the first day
+                return null;
               })}
           </ul>
         </div>
       )}
+
     </>
   )
 }
