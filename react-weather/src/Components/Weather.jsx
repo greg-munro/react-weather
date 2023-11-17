@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import RainfallChart from './RainfallChart'
 import LocationInputForm from './LocationInputForm'
+import CurrentWeather from './CurrentWeather'
+import ForecastTabs from './ForecastTabs'
 import {
   Menu,
   MenuButton,
@@ -70,24 +72,8 @@ const Weather = () => {
   return (
     <>
       <LocationInputForm handleSubmit={handleSubmit} handleReturn={handleReturn} />
-      {weatherData && (
-        <p>
-          The weather in {location.charAt(0).toUpperCase() + location.slice(1)},{' '}
-          {weatherData.location.region}
-        </p>
-      )}
-      {weatherData && (
-        <div className='current-weather-container'>
-          <p>
-            {weatherData.current.temp_c}°C -{' '}
-            {weatherData.current.condition.text}
-          </p>
-          <img
-            src={weatherData.current.condition.icon}
-            className='weather-icon'
-          />
-        </div>
-      )}
+      <CurrentWeather weatherData={weatherData} location={location} />
+
       {weatherData && (
         <>
           <h2>Forecast</h2>
@@ -115,13 +101,10 @@ const Weather = () => {
 
       {weatherData && dailyView && (
         <>
-          <Tabs>
-            <TabList>
-            <Tab onClick={handleConditionsClick}>Conditions</Tab>
-              <Tab onClick={handleRainfallClick}>Precipitation</Tab>
-              <Tab onClick={()=> console.log('wind selected')}>Wind</Tab>
-            </TabList>
-          </Tabs>
+        <ForecastTabs
+            handleConditionsClick={handleConditionsClick}
+            handleRainfallClick={handleRainfallClick}
+          />
           {showRainfall && <RainfallChart weatherData={weatherData} />}
           {weatherData.forecast &&
             weatherData.forecast.forecastday && 
