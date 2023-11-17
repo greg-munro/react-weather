@@ -3,15 +3,24 @@
 @secondary: #38ef7d;
 @white: #fff;
 @gray: #9b9b9b;
+
+body {
+  background-color: #8EC5FC!important;
+  background-image: linear-gradient(176deg, #bdd9f4 0%, #c3d5fc 30%, #ffffff 100%)!important
+}
+
 .form__group {
   position: relative;
   padding: 15px 0 0;
   margin-top: 10px;
   width: 50%;
+  display: flex;
 }
+
 * {
   font-family: 'Inter', sans-serif;
 }
+
 .header {
   font-size: 2rem;
   color: rgb(163, 163, 163);
@@ -24,6 +33,7 @@
   align-items: center;
   height: 100vh;
 }
+
 .main-search-box {
   width: 400px;
   height: 300px;
@@ -34,46 +44,54 @@
   display: flex;
   flex-direction: column;
 }
+
 .main-search-box button {
- width: 100px;
+  width: 100px;
 }
 
 .weather-icon {
   width: 100px;
   height: 100px;
 }
+
 .current-weather-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .forecast-days-container {
   display: flex;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   width: 65vw;
   justify-content: space-evenly;
+  margin: 50px 0;
 }
+
 .forecast-days-container li {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .hourly-container {
   display: flex;
   width: 65vw;
   justify-content: space-evenly;
   overflow-x: scroll;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin: 50px 0;
 }
+
 .hour-block {
   display: flex;
-    flex-direction: column;
-    margin: 20px;
-    align-items: center;
+  flex-direction: column;
+  margin: 20px;
+  align-items: center;
 }
+
 .hour-block li {
   list-style: none;
 }
+
 #rainfallChart {
   width: 500px;
   height: 500px;
@@ -84,7 +102,8 @@
   font-family: inherit;
   width: 100%;
   border: 0;
-  border-bottom: 2px solid gray;
+  border-bottom: 2px #d0cfcf solid;
+  border-width: thin;
   outline: 0;
   font-size: 1.3rem;
   padding: 7px 0;
@@ -95,7 +114,7 @@
     color: transparent;
   }
 
-  &:placeholder-shown ~ .form__label {
+  &:placeholder-shown~.form__label {
     font-size: 1.3rem;
     cursor: text;
     top: 20px;
@@ -108,26 +127,31 @@
   display: block;
   transition: 0.2s;
   font-size: 1rem;
-  color: gray;
+  color: white;
 }
 
 .form__field:focus {
-  ~ .form__label {
+  ~.form__label {
     position: absolute;
     top: 0;
     display: block;
     transition: 0.2s;
     font-size: 1rem;
     color: primary;
-    font-weight:700;    
+    font-weight: 700;
   }
-  padding-bottom: 6px;  
+
+  padding-bottom: 6px;
   font-weight: 700;
   border-width: 3px;
   border-image-slice: 1;
 }
+
 /* reset input */
-.form__field{
-  &:required,&:invalid { box-shadow:none; }
+.form__field {
+
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
 }
-/* demo */
