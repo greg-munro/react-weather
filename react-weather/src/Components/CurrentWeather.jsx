@@ -1,4 +1,5 @@
-import { Switch, Stack } from '@chakra-ui/react'
+import PropTypes from 'prop-types'
+
 const CurrentWeather = ({ weatherData, location, isCelsius }) => {
   return (
     <div>
@@ -27,4 +28,9 @@ const CurrentWeather = ({ weatherData, location, isCelsius }) => {
   )
 }
 
+CurrentWeather.propTypes = {
+  weatherData: PropTypes.func.isRequired,
+  location: PropTypes.func.isRequired,
+  isCelsius: PropTypes.func.isRequired
+}
 export default CurrentWeather

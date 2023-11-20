@@ -24,8 +24,11 @@ const Weather = () => {
 
   const handleSubmit = () => {
     const userSearch = document.querySelector('input').value
+    const formGroup = document.querySelector('.form__group')
     if (userSearch.length > 0) {
       setLocation(userSearch)
+      formGroup.style.position = 'absolute'
+      formGroup.style.top = 0
     }
   }
   const handleReturn = (event) => {
