@@ -19,6 +19,7 @@ const Weather = () => {
   const [showConditions, setShowConditions] = useState(true)
   const [showWind, setShowWind] = useState(false)
   const [isCelsius, setIsCelsius] = useState(true)
+  const [error, setError] = useState(null)
 
   const API_KEY = '237c55e13ccd467290e170801231411'
 
@@ -30,6 +31,7 @@ const Weather = () => {
       formGroup.style.position = 'absolute'
       formGroup.style.top = 0
     }
+    setError(null)
   }
   const handleReturn = (event) => {
     if (event.key === 'Enter') {
@@ -74,9 +76,13 @@ const Weather = () => {
           console.log('weatherData:', response.data)
           setWeatherData(response.data)
         })
-        .catch((error) => console.error('Error fetching weather data:', error))
+        .catch((error) => {
+          console.error('Error fetching weather data:', error);
+          setWeatherData(null); // Clear previous data in case of an error
+          setError('Location not found. Please enter a valid location.');
+        });
     }
-  }, [location, showRainfall])
+  }, [location, showRainfall]);
 
   return (
     <>
@@ -84,6 +90,7 @@ const Weather = () => {
         handleSubmit={handleSubmit}
         handleReturn={handleReturn}
       />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <CurrentWeather
         weatherData={weatherData}
         location={location}
