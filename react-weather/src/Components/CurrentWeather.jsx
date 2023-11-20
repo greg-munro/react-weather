@@ -2,8 +2,8 @@ const CurrentWeather = ({ weatherData, location }) => {
   return (
     <div>
       {weatherData && (
-        <p>
-          The weather in {location.charAt(0).toUpperCase() + location.slice(1)}, {weatherData.location.region}
+        <p className="current-weather-location">
+          {location.charAt(0).toUpperCase() + location.slice(1)}, {weatherData.location.region}
         </p>
       )}
       {weatherData && (

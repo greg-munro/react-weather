@@ -4,6 +4,8 @@ import RainfallChart from './RainfallChart'
 import LocationInputForm from './LocationInputForm'
 import CurrentWeather from './CurrentWeather'
 import ForecastTabs from './ForecastTabs'
+import WindChart from './WindChart'
+
 import {
   Menu,
   MenuButton,
@@ -21,6 +23,7 @@ const Weather = () => {
   const [hourlyView, setHourlyView] = useState(false)
   const [showRainfall, setShowRainfall] = useState(false)
   const [showConditions, setShowConditions] = useState(true);
+  const [showWind, setShowWind] = useState(false)
 
   const API_KEY = '237c55e13ccd467290e170801231411'
 
@@ -45,13 +48,19 @@ const Weather = () => {
     setShowRainfall(false)
   }
   const handleHourlyClick = () => {
-    setHourlyView((prevState) => !prevState)
+    setHourlyView(true)
     setDailyView(false)
+    setShowRainfall(false)
   }
   const handleRainfallClick = () => {
     setShowRainfall(true)
     setShowConditions(false)
-
+    setShowWind(false)
+  }
+  const handleWindClick = () => {
+    setShowWind(true)
+    setShowConditions(false)
+    setShowRainfall(false)
   }
 
 
@@ -76,9 +85,8 @@ const Weather = () => {
 
       {weatherData && (
         <>
-          <h2>Forecast</h2>
-          <div>
-            <Menu>
+          <div className='forecast-selector'>
+          <Menu>
               {() => (
                 <>
                   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
@@ -104,6 +112,7 @@ const Weather = () => {
         <ForecastTabs
             handleConditionsClick={handleConditionsClick}
             handleRainfallClick={handleRainfallClick}
+            handleWindClick={handleWindClick}
           />
           {showRainfall && <RainfallChart weatherData={weatherData} />}
           {weatherData.forecast &&
@@ -115,6 +124,13 @@ const Weather = () => {
                   <div id='rainfallChart'></div>
                 </div>
               )}
+              {showWind && <WindChart weatherData={weatherData} />}
+              {showWind && (
+                <div className='rainfall-container'>
+                  <div id='windChart'></div>
+                </div>
+              )
+              }
               {weatherData.forecast.forecastday.map((day) => {
                 const dateObject = new Date(day.date)
                 const dayOfWeek = dateObject.toLocaleDateString('en-US', {
@@ -128,7 +144,11 @@ const Weather = () => {
                       <li>
                         {`${dayOfWeek} ${dayOfMonth}`}
                         <img src={day.day.condition.icon} alt='icon' />
-                        <span>{day.day.avgtemp_c}°C</span>
+                        <div className='min-max-temps'>
+                        <span className='min-temp'>{day.day.mintemp_c}°C</span>
+                        <span className='max-temp'>{day.day.maxtemp_c}°C</span>
+                        </div>
+                      
                       </li>
                     </ul>
                   </div>
@@ -169,6 +189,7 @@ const Weather = () => {
           </ul>
         </div>
       )}
+
 
     </>
   )

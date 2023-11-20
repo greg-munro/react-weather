@@ -13,7 +13,7 @@ const LocationInputForm = ({ handleSubmit, handleReturn }) => {
         
       />
       <label htmlFor="name" className="form__label">
-        Enter location...
+        Search location, city...
       </label>
       <IconButton
   isRound={true}

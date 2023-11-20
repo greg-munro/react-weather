@@ -71,6 +71,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 7px;
 }
 
 .hourly-container {
@@ -154,4 +155,28 @@ body {
   &:invalid {
     box-shadow: none;
   }
+}
+
+.min-max-temps {
+  width: 115px;
+  display: flex;
+  justify-content: space-around;
+}
+.min-max-temps span {
+ margin: 5px;
+}
+
+.min-temp {
+  color: rgb(95, 95, 244);
+  font-weight: 100;
+  font-size: .9em;
+}
+.max-temp {
+  font-weight: 600;
+  font-size: .9em;
+}
+.current-weather-location {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color:#4b4b4b
 }
