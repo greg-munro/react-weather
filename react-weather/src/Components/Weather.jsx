@@ -184,6 +184,11 @@ const Weather = () => {
 
       {weatherData && hourlyView && (
         <div>
+        <ForecastTabs
+            handleConditionsClick={handleConditionsClick}
+            handleRainfallClick={handleRainfallClick}
+            handleWindClick={handleWindClick}
+          />
           <ul className='hourly-container'>
             {weatherData.forecast &&
               weatherData.forecast.forecastday.map((day, index) => {
@@ -198,7 +203,12 @@ const Weather = () => {
                         <div className='hour-block' key={index}>
                           <li>{hourOnly}</li>
                           <img src={eachHour.condition.icon} alt='icon' />
-                          <span>{eachHour.temp_c} °C</span>
+                          {/* <span>{eachHour.temp_c} °C</span> */}
+                          <span>
+                              {isCelsius
+                                ? `${eachHour.temp_c}°C`
+                                : `${eachHour.temp_f}°F`}
+                            </span>
                         </div>
                       )
                     }
