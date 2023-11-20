@@ -1,63 +1,76 @@
-import { useEffect } from 'react';
-import * as echarts from 'echarts';
+import { useEffect } from 'react'
+import * as echarts from 'echarts'
+import PropTypes from 'prop-types'
 
 const WindChart = ({ weatherData }) => {
   const xAxis = [];
   const yAxis = [];
-
   useEffect(() => {
-    // Check if weatherData is available
+  
     if (weatherData) {
-      // Iterate over forecastday and push data to xAxis and yAxis
       weatherData.forecast.forecastday.forEach((day) => {
         const dateObject = new Date(day.date);
         const dayOfWeek = dateObject.toLocaleDateString('en-US', {
           weekday: 'short',
         });
         xAxis.push(dayOfWeek);
-        yAxis.push(day.day.totalprecip_mm);
-      });
+        yAxis.push(day.day.maxwind_mph);
+      })
 
-      // Initialize ECharts and set options
-      const rainChart = echarts.init(document.getElementById('windChart'));
+      const windChart = echarts.init(document.getElementById('windChart'))
       const option = {
         title: {
-          text: 'Expected rainfall (mm)'
+          text: 'Maximum windspeeds (mph)'
         },
-        color: ['#2e7fc7'],
+        toolbox: {
+          feature: {
+            dataView: {},
+            saveAsImage: {
+              pixelRatio: 2
+            }
+          }
+        },
         xAxis: {
           type: 'category',
-          boundaryGap: false,
-          data: xAxis,
+          data: xAxis
         },
         yAxis: {
-          type: 'value',
+          type: 'value'
         },
         tooltip: {
           trigger: 'axis', // Display tooltip when hovering over the series
           axisPointer: {
             type: 'cross', // Display a crosshair
           },
+          formatter: function (params) {
+            // Display tooltip with "mph" after the value
+            return `${params[0].name}: ${params[0].value}mph`;
+          },
         },
         series: [
           {
             data: yAxis,
             type: 'line',
-            areaStyle: {},
-            smooth: true
-          },
-        ],
+            animationDelay: function (idx) {
+              return idx * 10;
+            }
+          }
+        ]
       };
-      rainChart.setOption(option);
-
-      // Cleanup ECharts instance when the component unmounts
+      windChart.setOption(option)
       return () => {
-        rainChart.dispose();
+        windChart.dispose();
       };
     }
-  }, [weatherData]);
+  }, [weatherData])
 
-  return <div id='rainfallChart'></div>;
-};
 
-export default WindChart;
+
+  return <div id='windChart'></div>;
+}
+
+WindChart.propTypes = {
+  weatherData: PropTypes.object.isRequired,
+}
+
+export default WindChart

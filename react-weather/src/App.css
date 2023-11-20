@@ -102,9 +102,16 @@ body {
 }
 
 #rainfallChart {
-  width: 500px;
+  width: 700px;
   height: 500px;
   margin: 0 auto;
+  margin-top: 50px;
+}
+#windChart {
+  width: 700px;
+  height: 500px;
+  margin: 0 auto;
+  margin-top: 50px;
 }
 
 .form__field {

@@ -41,6 +41,7 @@ const Weather = () => {
   const handleConditionsClick = () => {
     setShowConditions(true)
     setShowRainfall(false)
+    setShowWind(false)
   }
   const handleDailyClick = () => {
     setDailyView(true)
@@ -136,6 +137,7 @@ const Weather = () => {
             handleWindClick={handleWindClick}
           />
           {showRainfall && <RainfallChart weatherData={weatherData} />}
+          {showWind && <WindChart weatherData={weatherData} />}
           {weatherData.forecast &&
             weatherData.forecast.forecastday &&
             showConditions && (
@@ -143,12 +145,6 @@ const Weather = () => {
                 {showRainfall && (
                   <div className='rainfall-container'>
                     <div id='rainfallChart'></div>
-                  </div>
-                )}
-                {showWind && <WindChart weatherData={weatherData} />}
-                {showWind && (
-                  <div className='rainfall-container'>
-                    <div id='windChart'></div>
                   </div>
                 )}
                 {weatherData.forecast.forecastday.map((day) => {
