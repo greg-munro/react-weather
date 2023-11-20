@@ -5,16 +5,10 @@ import LocationInputForm from './LocationInputForm'
 import CurrentWeather from './CurrentWeather'
 import ForecastTabs from './ForecastTabs'
 import WindChart from './WindChart'
+import { Switch, Stack } from '@chakra-ui/react'
 
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Button,
-} from '@chakra-ui/react'
-import { ChevronDownIcon } from '@chakra-ui/icons'; 
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 
 const Weather = () => {
   const [location, setLocation] = useState('')
@@ -22,8 +16,9 @@ const Weather = () => {
   const [dailyView, setDailyView] = useState(true)
   const [hourlyView, setHourlyView] = useState(false)
   const [showRainfall, setShowRainfall] = useState(false)
-  const [showConditions, setShowConditions] = useState(true);
+  const [showConditions, setShowConditions] = useState(true)
   const [showWind, setShowWind] = useState(false)
+  const [isCelsius, setIsCelsius] = useState(true)
 
   const API_KEY = '237c55e13ccd467290e170801231411'
 
@@ -62,7 +57,9 @@ const Weather = () => {
     setShowConditions(false)
     setShowRainfall(false)
   }
-
+  const handleMetricClick = () => {
+    setIsCelsius(prev => !prev)
+  }
 
   useEffect(() => {
     if (location !== '') {
@@ -80,16 +77,30 @@ const Weather = () => {
 
   return (
     <>
-      <LocationInputForm handleSubmit={handleSubmit} handleReturn={handleReturn} />
-      <CurrentWeather weatherData={weatherData} location={location} />
+      <LocationInputForm
+        handleSubmit={handleSubmit}
+        handleReturn={handleReturn}
+      />
+      <CurrentWeather
+        weatherData={weatherData}
+        location={location}
+        isCelsius={isCelsius}
+      />
 
       {weatherData && (
         <>
+          <Stack align='center' direction='row'>
+            <span>C°</span><Switch size='md' onChange={handleMetricClick} /><span>F°</span>
+          </Stack>
           <div className='forecast-selector'>
-          <Menu>
+            <Menu>
               {() => (
                 <>
-                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                  <MenuButton
+                    as={Button}
+                    rightIcon={<ChevronDownIcon />}
+                    colorScheme='blue'
+                  >
                     {dailyView ? 'Daily' : 'Hourly'}
                   </MenuButton>
                   <MenuList>
@@ -109,53 +120,59 @@ const Weather = () => {
 
       {weatherData && dailyView && (
         <>
-        <ForecastTabs
+          <ForecastTabs
             handleConditionsClick={handleConditionsClick}
             handleRainfallClick={handleRainfallClick}
             handleWindClick={handleWindClick}
           />
           {showRainfall && <RainfallChart weatherData={weatherData} />}
           {weatherData.forecast &&
-            weatherData.forecast.forecastday && 
+            weatherData.forecast.forecastday &&
             showConditions && (
-            <div className='forecast-days-container'>
-              {showRainfall && (
-                <div className='rainfall-container'>
-                  <div id='rainfallChart'></div>
-                </div>
-              )}
-              {showWind && <WindChart weatherData={weatherData} />}
-              {showWind && (
-                <div className='rainfall-container'>
-                  <div id='windChart'></div>
-                </div>
-              )
-              }
-              {weatherData.forecast.forecastday.map((day) => {
-                const dateObject = new Date(day.date)
-                const dayOfWeek = dateObject.toLocaleDateString('en-US', {
-                  weekday: 'short',
-                })
-                const dayOfMonth = dateObject.getDate()
-
-                return (
-                  <div className='daily-weather' key={day.date}>
-                    <ul>
-                      <li>
-                        {`${dayOfWeek} ${dayOfMonth}`}
-                        <img src={day.day.condition.icon} alt='icon' />
-                        <div className='min-max-temps'>
-                        <span className='min-temp'>{day.day.mintemp_c}°C</span>
-                        <span className='max-temp'>{day.day.maxtemp_c}°C</span>
-                        </div>
-                      
-                      </li>
-                    </ul>
+              <div className='forecast-days-container'>
+                {showRainfall && (
+                  <div className='rainfall-container'>
+                    <div id='rainfallChart'></div>
                   </div>
-                )
-              })}
-            </div>
-          )}
+                )}
+                {showWind && <WindChart weatherData={weatherData} />}
+                {showWind && (
+                  <div className='rainfall-container'>
+                    <div id='windChart'></div>
+                  </div>
+                )}
+                {weatherData.forecast.forecastday.map((day) => {
+                  const dateObject = new Date(day.date)
+                  const dayOfWeek = dateObject.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                  })
+                  const dayOfMonth = dateObject.getDate()
+
+                  return (
+                    <div className='daily-weather' key={day.date}>
+                      <ul>
+                        <li>
+                          {`${dayOfWeek} ${dayOfMonth}`}
+                          <img src={day.day.condition.icon} alt='icon' />
+                          <div className='min-max-temps'>
+                            <span className='min-temp'>
+                              {isCelsius
+                                ? `${day.day.mintemp_c}°C`
+                                : `${day.day.mintemp_f}°F`}
+                            </span>
+                            <span className='max-temp'>
+                            {isCelsius
+                                ? `${day.day.maxtemp_c}°C`
+                                : `${day.day.maxtemp_f}°F`}
+                            </span>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
         </>
       )}
 
@@ -165,32 +182,30 @@ const Weather = () => {
             {weatherData.forecast &&
               weatherData.forecast.forecastday.map((day, index) => {
                 if (index === 0) {
-                  const currentTime = new Date();
+                  const currentTime = new Date()
                   return day.hour.map((eachHour, index) => {
-                    const hourTime = new Date(eachHour.time);
+                    const hourTime = new Date(eachHour.time)
                     // Show only upcoming hours
                     if (hourTime > currentTime) {
-                      const hourOnly = eachHour.time.split(' ')[1].slice(0, 5);
+                      const hourOnly = eachHour.time.split(' ')[1].slice(0, 5)
                       return (
                         <div className='hour-block' key={index}>
                           <li>{hourOnly}</li>
                           <img src={eachHour.condition.icon} alt='icon' />
                           <span>{eachHour.temp_c} °C</span>
                         </div>
-                      );
+                      )
                     }
                     // Return null for hours that have already passed
-                    return null;
-                  });
+                    return null
+                  })
                 }
                 // Return null for days other than the first day
-                return null;
+                return null
               })}
           </ul>
         </div>
       )}
-
-
     </>
   )
 }

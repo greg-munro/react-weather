@@ -1,4 +1,5 @@
 import { Tabs, TabList, Tab } from '@chakra-ui/react';
+import PropTypes from 'prop-types'
 
 const ForecastTabs = ({ handleConditionsClick, handleRainfallClick, handleWindClick }) => {
   return (
@@ -12,4 +13,9 @@ const ForecastTabs = ({ handleConditionsClick, handleRainfallClick, handleWindCl
   );
 };
 
+ForecastTabs.propTypes = {
+  handleConditionsClick: PropTypes.func.isRequired,
+  handleRainfallClick: PropTypes.func.isRequired,
+  handleWindClick: PropTypes.func.isRequired,
+};
 export default ForecastTabs;

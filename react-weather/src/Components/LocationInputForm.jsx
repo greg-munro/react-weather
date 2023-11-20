@@ -1,7 +1,8 @@
 import { IconButton } from '@chakra-ui/react'
 import { ArrowForwardIcon } from '@chakra-ui/icons';
+import PropTypes from 'prop-types';
 
-const LocationInputForm = ({ handleSubmit, handleReturn }) => {
+const LocationInputForm = ({ handleSubmit, handleReturn,  }) => {
   return (
     <div className="form__group field">
       <input
@@ -24,10 +25,13 @@ const LocationInputForm = ({ handleSubmit, handleReturn }) => {
   icon={<ArrowForwardIcon />}
   onClick={handleSubmit}
 />
-      {/* <button >Submit</button> */}
-
     </div>
   );
+};
+
+LocationInputForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  handleReturn: PropTypes.func.isRequired,
 };
 
 export default LocationInputForm;

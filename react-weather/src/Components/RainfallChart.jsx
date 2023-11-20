@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import * as echarts from 'echarts';
+import PropTypes from 'prop-types'
 
 const RainfallChart = ({ weatherData }) => {
   const xAxis = [];
@@ -58,6 +59,10 @@ const RainfallChart = ({ weatherData }) => {
   }, [weatherData]);
 
   return <div id='rainfallChart'></div>;
+};
+
+RainfallChart.propTypes = {
+  weatherData: PropTypes.func.isRequired,
 };
 
 export default RainfallChart;
