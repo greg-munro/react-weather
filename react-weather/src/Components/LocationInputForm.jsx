@@ -10,7 +10,7 @@ const LocationInputForm = ({ handleSubmit, handleReturn }) => {
         placeholder="Enter location..."
         id="name"
         onKeyDown={handleReturn}
-        
+        autoComplete="off" 
       />
       <label htmlFor="name" className="form__label">
         Search location, city...
