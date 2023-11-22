@@ -17,6 +17,7 @@ const Weather = () => {
   const [hourlyView, setHourlyView] = useState(false)
   const [showRainfall, setShowRainfall] = useState(false)
   const [showConditions, setShowConditions] = useState(true)
+  const [showHourlyRain, setShowHourlyRain] = useState(false)
   const [showWind, setShowWind] = useState(false)
   const [isCelsius, setIsCelsius] = useState(true)
   const [error, setError] = useState(null)
@@ -66,12 +67,15 @@ const Weather = () => {
   const handleMetricClick = () => {
     setIsCelsius(prev => !prev)
   }
+  const handleHourlyRainClick = () => {
+    setShowHourlyRain(true)
+  }
 
   useEffect(() => {
     if (location !== '') {
       axios
         .get(
-          `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`
+          `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`
         )
         .then((response) => {
           console.log('weatherData:', response.data)
@@ -101,7 +105,9 @@ const Weather = () => {
       {weatherData && (
         <>
           <Stack align='center' direction='row'>
-            <span>C°</span><Switch size='md' onChange={handleMetricClick} /><span>F°</span>
+            <span>C°</span>
+            <Switch size='md' onChange={handleMetricClick} />
+            <span>F°</span>
           </Stack>
           <div className='forecast-selector'>
             <Menu>
@@ -167,7 +173,7 @@ const Weather = () => {
                                 : `${day.day.mintemp_f}°F`}
                             </span>
                             <span className='max-temp'>
-                            {isCelsius
+                              {isCelsius
                                 ? `${day.day.maxtemp_c}°C`
                                 : `${day.day.maxtemp_f}°F`}
                             </span>
@@ -184,9 +190,9 @@ const Weather = () => {
 
       {weatherData && hourlyView && (
         <div>
-        <ForecastTabs
+          <ForecastTabs
             handleConditionsClick={handleConditionsClick}
-            handleRainfallClick={handleRainfallClick}
+            handleRainfallClick={handleHourlyRainClick}
             handleWindClick={handleWindClick}
           />
           <ul className='hourly-container'>
@@ -203,12 +209,11 @@ const Weather = () => {
                         <div className='hour-block' key={index}>
                           <li>{hourOnly}</li>
                           <img src={eachHour.condition.icon} alt='icon' />
-                          {/* <span>{eachHour.temp_c} °C</span> */}
                           <span>
-                              {isCelsius
-                                ? `${eachHour.temp_c}°C`
-                                : `${eachHour.temp_f}°F`}
-                            </span>
+                            {isCelsius
+                              ? `${eachHour.temp_c}°C`
+                              : `${eachHour.temp_f}°F`}
+                          </span>
                         </div>
                       )
                     }
@@ -222,6 +227,11 @@ const Weather = () => {
           </ul>
         </div>
       )}
+      {weatherData && hourlyView && showHourlyRain ? (
+        <div className='test'>
+          Content to render when showHourlyRain is true
+        </div>
+      ) : null}
     </>
   )
 }
