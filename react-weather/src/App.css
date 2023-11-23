@@ -123,7 +123,8 @@ body {
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
-  
+  color: #485367;
+  font-size: 1.7rem;
 
   &::placeholder {
     color: transparent;

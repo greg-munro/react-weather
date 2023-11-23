@@ -37,6 +37,9 @@ const WindChart = ({ weatherData }) => {
           type: 'category',
           data: xAxis,
           name: 'Day',
+          nameTextStyle: {
+            color: 'white'
+          },
           axisLabel: {
             color: 'white'
           }
@@ -44,6 +47,9 @@ const WindChart = ({ weatherData }) => {
         yAxis: {
           type: 'value',
           name: 'Mph',
+          nameTextStyle: {
+            color: 'white'
+          },
           axisLabel: {
             color: 'white'
           }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import RainfallChart from './RainfallChart';
 import LocationInputForm from './LocationInputForm';
@@ -6,9 +6,8 @@ import CurrentWeather from './CurrentWeather';
 import ForecastTabs from './ForecastTabs';
 import WindChart from './WindChart';
 import { Switch, Stack } from '@chakra-ui/react';
-import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import Clouds from './Clouds';
+import DailyHourlySelector from './DailyHourlySelector';
 
 const Weather = () => {
   const [location, setLocation] = useState('');
@@ -99,153 +98,140 @@ const Weather = () => {
 
   return (
     <>
-    <Clouds />
-    <LocationInputForm
-    handleSubmit={handleSubmit}
-    handleReturn={handleReturn}
-  />
-   {weatherData &&  <div className="weather-body">
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <CurrentWeather
-        weatherData={weatherData}
-        location={location}
-        isCelsius={isCelsius}
+      <Clouds />
+      <LocationInputForm
+        handleSubmit={handleSubmit}
+        handleReturn={handleReturn}
       />
-
       {weatherData && (
-        <>
-          <Stack align='center' direction='row'>
-            <span>C°</span>
-            <Switch size='md' onChange={handleMetricClick} />
-            <span>F°</span>
-          </Stack>
-          <div className='forecast-selector'>
-            <Menu>
-              {() => (
-                <>
-                  <MenuButton
-                    as={Button}
-                    rightIcon={<ChevronDownIcon />}
-                    colorScheme='blue'
-                  >
-                    {dailyView ? 'Daily' : 'Hourly'}
-                  </MenuButton>
-                  <MenuList>
-                    <MenuItem onClick={() => handleDailyClick('daily')}>
-                      Daily
-                    </MenuItem>
-                    <MenuItem onClick={() => handleHourlyClick('hourly')}>
-                      Hourly
-                    </MenuItem>
-                  </MenuList>
-                </>
-              )}
-            </Menu>
-          </div>
-        </>
-      )}
-
-      {weatherData && dailyView && (
-        <>
-          <ForecastTabs
-            handleConditionsClick={handleConditionsClick}
-            handleRainfallClick={handleRainfallClick}
-            handleWindClick={handleWindClick}
+        <div className='weather-body'>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <CurrentWeather
+            weatherData={weatherData}
+            location={location}
+            isCelsius={isCelsius}
           />
-          {showRainfall && <RainfallChart weatherData={weatherData} />}
-          {showWind && <WindChart weatherData={weatherData} />}
-          {weatherData.forecast &&
-            weatherData.forecast.forecastday &&
-            showConditions && (
-              <div className='forecast-days-container'>
-                {showRainfall && (
-                  <div className='rainfall-container'>
-                    <div id='rainfallChart'></div>
+
+          {weatherData && (
+            <>
+              <Stack align='center' direction='row'>
+                <span>C°</span>
+                <Switch size='md' onChange={handleMetricClick} />
+                <span>F°</span>
+              </Stack>
+              <div className='forecast-selector'>
+                <DailyHourlySelector
+                  handleDailyClick={handleDailyClick}
+                  handleHourlyClick={handleHourlyClick}
+                  dailyView={dailyView}
+                />
+              </div>
+            </>
+          )}
+
+          {weatherData && dailyView && (
+            <>
+              <ForecastTabs
+                handleConditionsClick={handleConditionsClick}
+                handleRainfallClick={handleRainfallClick}
+                handleWindClick={handleWindClick}
+              />
+              {showRainfall && <RainfallChart weatherData={weatherData} />}
+              {showWind && <WindChart weatherData={weatherData} />}
+              {weatherData.forecast &&
+                weatherData.forecast.forecastday &&
+                showConditions && (
+                  <div className='forecast-days-container'>
+                    {showRainfall && (
+                      <div className='rainfall-container'>
+                        <div id='rainfallChart'></div>
+                      </div>
+                    )}
+                    {weatherData.forecast.forecastday.map((day) => {
+                      const dateObject = new Date(day.date)
+                      const dayOfWeek = dateObject.toLocaleDateString('en-US', {
+                        weekday: 'short',
+                      })
+                      const dayOfMonth = dateObject.getDate()
+
+                      return (
+                        <div className='daily-weather' key={day.date}>
+                          <ul>
+                            <li>
+                              {`${dayOfWeek} ${dayOfMonth}`}
+                              <img src={day.day.condition.icon} alt='icon' />
+                              <div className='min-max-temps'>
+                                <span className='min-temp'>
+                                  {isCelsius
+                                    ? `${day.day.mintemp_c}°C`
+                                    : `${day.day.mintemp_f}°F`}
+                                </span>
+                                <span className='max-temp'>
+                                  {isCelsius
+                                    ? `${day.day.maxtemp_c}°C`
+                                    : `${day.day.maxtemp_f}°F`}
+                                </span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      )
+                    })}
                   </div>
                 )}
-                {weatherData.forecast.forecastday.map((day) => {
-                  const dateObject = new Date(day.date);
-                  const dayOfWeek = dateObject.toLocaleDateString('en-US', {
-                    weekday: 'short',
-                  });
-                  const dayOfMonth = dateObject.getDate();
+            </>
+          )}
 
-                  return (
-                    <div className='daily-weather' key={day.date}>
-                      <ul>
-                        <li>
-                          {`${dayOfWeek} ${dayOfMonth}`}
-                          <img src={day.day.condition.icon} alt='icon' />
-                          <div className='min-max-temps'>
-                            <span className='min-temp'>
-                              {isCelsius
-                                ? `${day.day.mintemp_c}°C`
-                                : `${day.day.mintemp_f}°F`}
-                            </span>
-                            <span className='max-temp'>
-                              {isCelsius
-                                ? `${day.day.maxtemp_c}°C`
-                                : `${day.day.maxtemp_f}°F`}
-                            </span>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-        </>
-      )}
-
-      {weatherData && hourlyView && (
-        <div>
-          <ForecastTabs
-            handleConditionsClick={handleConditionsClick}
-            handleRainfallClick={handleHourlyRainClick}
-            handleWindClick={handleWindClick}
-          />
-          <ul className='hourly-container'>
-            {weatherData.forecast &&
-              weatherData.forecast.forecastday.map((day, index) => {
-                if (index === 0) {
-                  const currentTime = new Date();
-                  return day.hour.map((eachHour, index) => {
-                    const hourTime = new Date(eachHour.time);
-                    // Show only upcoming hours
-                    if (hourTime > currentTime) {
-                      const hourOnly = eachHour.time.split(' ')[1].slice(0, 5);
-                      return (
-                        <div className='hour-block' key={index}>
-                          <li>{hourOnly}</li>
-                          <img src={eachHour.condition.icon} alt='icon' />
-                          <span>
-                            {isCelsius
-                              ? `${eachHour.temp_c}°C`
-                              : `${eachHour.temp_f}°F`}
-                          </span>
-                        </div>
-                      );
+          {weatherData && hourlyView && (
+            <div>
+              <ForecastTabs
+                handleConditionsClick={handleConditionsClick}
+                handleRainfallClick={handleHourlyRainClick}
+                handleWindClick={handleWindClick}
+              />
+              <ul className='hourly-container'>
+                {weatherData.forecast &&
+                  weatherData.forecast.forecastday.map((day, index) => {
+                    if (index === 0) {
+                      const currentTime = new Date()
+                      return day.hour.map((eachHour, index) => {
+                        const hourTime = new Date(eachHour.time)
+                        // Show only upcoming hours
+                        if (hourTime > currentTime) {
+                          const hourOnly = eachHour.time
+                            .split(' ')[1]
+                            .slice(0, 5)
+                          return (
+                            <div className='hour-block' key={index}>
+                              <li>{hourOnly}</li>
+                              <img src={eachHour.condition.icon} alt='icon' />
+                              <span>
+                                {isCelsius
+                                  ? `${eachHour.temp_c}°C`
+                                  : `${eachHour.temp_f}°F`}
+                              </span>
+                            </div>
+                          )
+                        }
+                        // Return null for hours that have already passed
+                        return null
+                      })
                     }
-                    // Return null for hours that have already passed
-                    return null;
-                  });
-                }
-                // Return null for days other than the first day
-                return null;
-              })}
-          </ul>
+                    // Return null for days other than the first day
+                    return null
+                  })}
+              </ul>
+            </div>
+          )}
+          {weatherData && hourlyView && showHourlyRain ? (
+            <div className='test'>
+              Content to render when showHourlyRain is true
+            </div>
+          ) : null}
         </div>
       )}
-      {weatherData && hourlyView && showHourlyRain ? (
-        <div className='test'>
-          Content to render when showHourlyRain is true
-        </div>
-      ) : null}
-    </div>}
     </>
-  );
+  )
 };
 
 export default Weather;

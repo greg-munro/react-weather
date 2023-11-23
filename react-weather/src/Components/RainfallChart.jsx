@@ -35,6 +35,9 @@ const RainfallChart = ({ weatherData }) => {
           boundaryGap: false,
           data: xAxis,
           name: 'Day',
+          nameTextStyle: {
+            color: 'white'
+          },
           axisLabel: {
             color: 'white'
           },
@@ -43,6 +46,9 @@ const RainfallChart = ({ weatherData }) => {
         yAxis: {
           type: 'value',
           name: 'Milimeters',
+          nameTextStyle: {
+            color: 'white'
+          },
           axisLabel: {
             color: 'white'
           }
