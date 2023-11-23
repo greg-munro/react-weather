@@ -209,6 +209,7 @@ body {
   width: 115px;
   display: flex;
   justify-content: space-around;
+  font-size: 1.1rem;
 }
 .min-max-temps span {
  margin: 5px;
@@ -217,11 +218,9 @@ body {
 .min-temp {
   color: rgb(168, 168, 229);
   font-weight: 100;
-  font-size: .9em;
 }
 .max-temp {
   font-weight: 600;
-  font-size: .9em;
   color: white;
 }
 .current-weather-location {
