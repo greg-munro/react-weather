@@ -3,11 +3,12 @@ import * as echarts from 'echarts'
 import PropTypes from 'prop-types'
 
 const WindChart = ({ weatherData }) => {
-  const xAxis = [];
-  const yAxis = [];
+
   useEffect(() => {
   
     if (weatherData) {
+      const xAxis = [];
+      const yAxis = [];
       weatherData.forecast.forecastday.forEach((day) => {
         const dateObject = new Date(day.date);
         const dayOfWeek = dateObject.toLocaleDateString('en-US', {
@@ -82,7 +83,7 @@ const WindChart = ({ weatherData }) => {
         windChart.dispose();
       };
     }
-  }, [weatherData])
+  }, [weatherData, location])
 
 
 

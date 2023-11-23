@@ -8,7 +8,6 @@ import WindChart from './WindChart';
 import { Switch, Stack } from '@chakra-ui/react';
 import Clouds from './Clouds';
 import DailyHourlySelector from './DailyHourlySelector';
-import { FaSearch } from 'react-icons/fa';
 
 
 const Weather = () => {

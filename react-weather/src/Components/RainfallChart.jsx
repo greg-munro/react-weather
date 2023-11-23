@@ -3,12 +3,12 @@ import * as echarts from 'echarts';
 import PropTypes from 'prop-types'
 
 const RainfallChart = ({ weatherData }) => {
-  const xAxis = [];
-  const yAxis = [];
 
   useEffect(() => {
     // Check if weatherData is available
     if (weatherData) {
+      const xAxis = [];
+      const yAxis = [];
       // Iterate over forecastday and push data to xAxis and yAxis
       weatherData.forecast.forecastday.forEach((day) => {
         const dateObject = new Date(day.date);
@@ -18,6 +18,7 @@ const RainfallChart = ({ weatherData }) => {
         xAxis.push(dayOfWeek);
         yAxis.push(day.day.totalprecip_mm);
       });
+      console.log('x:', xAxis, 'y:', yAxis)
 
       // Initialize ECharts and set options
       const rainChart = echarts.init(document.getElementById('rainfallChart'));
@@ -82,7 +83,7 @@ const RainfallChart = ({ weatherData }) => {
         rainChart.dispose();
       };
     }
-  }, [weatherData]);
+  }, []);
 
   return <div id='rainfallChart'></div>;
 };
