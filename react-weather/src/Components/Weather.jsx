@@ -198,7 +198,7 @@ const Weather = () => {
           )}
 
           {weatherData && hourlyView && (
-            <div>
+            <>
               <ForecastTabs
                 handleConditionsClick={handleConditionsClick}
                 handleRainfallClick={handleHourlyRainClick}
@@ -236,7 +236,7 @@ const Weather = () => {
                     return null
                   })}
               </ul>
-            </div>
+            </>
           )}
           {weatherData && hourlyView && showHourlyRain ? (
             <div className='test'>
