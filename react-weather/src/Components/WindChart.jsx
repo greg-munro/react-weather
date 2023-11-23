@@ -20,7 +20,10 @@ const WindChart = ({ weatherData }) => {
       const windChart = echarts.init(document.getElementById('windChart'))
       const option = {
         title: {
-          text: 'Maximum windspeeds (mph)'
+          text: 'Maximum windspeeds',
+          textStyle: {
+            color: 'white'
+          }
         },
         toolbox: {
           feature: {
@@ -32,10 +35,18 @@ const WindChart = ({ weatherData }) => {
         },
         xAxis: {
           type: 'category',
-          data: xAxis
+          data: xAxis,
+          name: 'Day',
+          axisLabel: {
+            color: 'white'
+          }
         },
         yAxis: {
-          type: 'value'
+          type: 'value',
+          name: 'Mph',
+          axisLabel: {
+            color: 'white'
+          }
         },
         tooltip: {
           trigger: 'axis', // Display tooltip when hovering over the series
@@ -53,7 +64,10 @@ const WindChart = ({ weatherData }) => {
             type: 'line',
             animationDelay: function (idx) {
               return idx * 10;
-            }
+            },
+            lineStyle: {
+              color: 'orange', 
+            },
           }
         ]
       };

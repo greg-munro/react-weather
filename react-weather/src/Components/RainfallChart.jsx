@@ -23,27 +23,47 @@ const RainfallChart = ({ weatherData }) => {
       const rainChart = echarts.init(document.getElementById('rainfallChart'));
       const option = {
         title: {
-          text: 'Expected rainfall (mm)'
+          text: 'Expected rainfall',
+          textStyle: {
+            color: 'white', // Change the font color here
+          },
         },
+
         color: ['#2e7fc7'],
         xAxis: {
           type: 'category',
           boundaryGap: false,
           data: xAxis,
+          name: 'Day',
+          axisLabel: {
+            color: 'white'
+          },
+
         },
         yAxis: {
           type: 'value',
+          name: 'Milimeters',
+          axisLabel: {
+            color: 'white'
+          }
         },
         tooltip: {
           trigger: 'axis', // Display tooltip when hovering over the series
           axisPointer: {
             type: 'cross', // Display a crosshair
           },
+          formatter: function (params) {
+            // Display tooltip with "mph" after the value
+            return `${params[0].name}: ${params[0].value}mm`;
+          },
         },
         series: [
           {
             data: yAxis,
             type: 'line',
+            lineStyle: {
+              color: 'pink', 
+            },
             areaStyle: {},
             smooth: true
           },

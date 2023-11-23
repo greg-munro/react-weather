@@ -1,75 +1,83 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import RainfallChart from './RainfallChart'
-import LocationInputForm from './LocationInputForm'
-import CurrentWeather from './CurrentWeather'
-import ForecastTabs from './ForecastTabs'
-import WindChart from './WindChart'
-import { Switch, Stack } from '@chakra-ui/react'
-
-import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react'
-import { ChevronDownIcon } from '@chakra-ui/icons'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import RainfallChart from './RainfallChart';
+import LocationInputForm from './LocationInputForm';
+import CurrentWeather from './CurrentWeather';
+import ForecastTabs from './ForecastTabs';
+import WindChart from './WindChart';
+import { Switch, Stack } from '@chakra-ui/react';
+import { Menu, MenuButton, MenuList, MenuItem, Button } from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import Clouds from './Clouds';
 
 const Weather = () => {
-  const [location, setLocation] = useState('')
-  const [weatherData, setWeatherData] = useState(null)
-  const [dailyView, setDailyView] = useState(true)
-  const [hourlyView, setHourlyView] = useState(false)
-  const [showRainfall, setShowRainfall] = useState(false)
-  const [showConditions, setShowConditions] = useState(true)
-  const [showHourlyRain, setShowHourlyRain] = useState(false)
-  const [showWind, setShowWind] = useState(false)
-  const [isCelsius, setIsCelsius] = useState(true)
-  const [error, setError] = useState(null)
+  const [location, setLocation] = useState('');
+  const [weatherData, setWeatherData] = useState(null);
+  const [dailyView, setDailyView] = useState(true);
+  const [hourlyView, setHourlyView] = useState(false);
+  const [showRainfall, setShowRainfall] = useState(false);
+  const [showConditions, setShowConditions] = useState(true);
+  const [showHourlyRain, setShowHourlyRain] = useState(false);
+  const [showWind, setShowWind] = useState(false);
+  const [isCelsius, setIsCelsius] = useState(true);
+  const [error, setError] = useState(null);
 
   const API_KEY = import.meta.env.VITE_REACT_APP_WEATHER_API_KEY;
 
   const handleSubmit = () => {
-    const userSearch = document.querySelector('input').value
-    const formGroup = document.querySelector('.form__group')
+    const userSearch = document.querySelector('input').value;
+    const formGroup = document.querySelector('.form__group');
     if (userSearch.length > 0) {
-      setLocation(userSearch)
-      formGroup.style.position = 'absolute'
-      formGroup.style.top = 0
+      setLocation(userSearch);
+      formGroup.style.position = 'absolute';
+      formGroup.style.top = 0;
     }
-    setError(null)
-  }
+    setError(null);
+  };
+
   const handleReturn = (event) => {
     if (event.key === 'Enter') {
-      handleSubmit()
+      handleSubmit();
     }
-  }
+  };
+
   const handleConditionsClick = () => {
-    setShowConditions(true)
-    setShowRainfall(false)
-    setShowWind(false)
-  }
+    setShowConditions(true);
+    setShowRainfall(false);
+    setShowWind(false);
+  };
+
   const handleDailyClick = () => {
-    setDailyView(true)
-    setHourlyView(false)
-    setShowRainfall(false)
-  }
+    setDailyView(true);
+    setHourlyView(false);
+    setShowRainfall(false);
+  };
+
   const handleHourlyClick = () => {
-    setHourlyView(true)
-    setDailyView(false)
-    setShowRainfall(false)
-  }
+    setHourlyView(true);
+    setDailyView(false);
+    setShowRainfall(false);
+  };
+
   const handleRainfallClick = () => {
-    setShowRainfall(true)
-    setShowConditions(false)
-    setShowWind(false)
-  }
+    setShowRainfall(true);
+    setShowConditions(false);
+    setShowWind(false);
+  };
+
   const handleWindClick = () => {
-    setShowWind(true)
-    setShowConditions(false)
-    setShowRainfall(false)
-  }
+    setShowWind(true);
+    setShowConditions(false);
+    setShowRainfall(false);
+  };
+
   const handleMetricClick = () => {
-    setIsCelsius(prev => !prev)
-  }
+    setIsCelsius((prev) => !prev);
+  };
+
   const handleHourlyRainClick = () => {
-    setShowHourlyRain(true)
-  }
+    setShowHourlyRain(true);
+  };
 
   useEffect(() => {
     if (location !== '') {
@@ -78,8 +86,8 @@ const Weather = () => {
           `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`
         )
         .then((response) => {
-          console.log('weatherData:', response.data)
-          setWeatherData(response.data)
+          console.log('weatherData:', response.data);
+          setWeatherData(response.data);
         })
         .catch((error) => {
           console.error('Error fetching weather data:', error);
@@ -91,10 +99,13 @@ const Weather = () => {
 
   return (
     <>
-      <LocationInputForm
-        handleSubmit={handleSubmit}
-        handleReturn={handleReturn}
-      />
+    <Clouds />
+    <LocationInputForm
+    handleSubmit={handleSubmit}
+    handleReturn={handleReturn}
+  />
+   {weatherData &&  <div className="weather-body">
+
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <CurrentWeather
         weatherData={weatherData}
@@ -154,11 +165,11 @@ const Weather = () => {
                   </div>
                 )}
                 {weatherData.forecast.forecastday.map((day) => {
-                  const dateObject = new Date(day.date)
+                  const dateObject = new Date(day.date);
                   const dayOfWeek = dateObject.toLocaleDateString('en-US', {
                     weekday: 'short',
-                  })
-                  const dayOfMonth = dateObject.getDate()
+                  });
+                  const dayOfMonth = dateObject.getDate();
 
                   return (
                     <div className='daily-weather' key={day.date}>
@@ -181,7 +192,7 @@ const Weather = () => {
                         </li>
                       </ul>
                     </div>
-                  )
+                  );
                 })}
               </div>
             )}
@@ -199,12 +210,12 @@ const Weather = () => {
             {weatherData.forecast &&
               weatherData.forecast.forecastday.map((day, index) => {
                 if (index === 0) {
-                  const currentTime = new Date()
+                  const currentTime = new Date();
                   return day.hour.map((eachHour, index) => {
-                    const hourTime = new Date(eachHour.time)
+                    const hourTime = new Date(eachHour.time);
                     // Show only upcoming hours
                     if (hourTime > currentTime) {
-                      const hourOnly = eachHour.time.split(' ')[1].slice(0, 5)
+                      const hourOnly = eachHour.time.split(' ')[1].slice(0, 5);
                       return (
                         <div className='hour-block' key={index}>
                           <li>{hourOnly}</li>
@@ -215,14 +226,14 @@ const Weather = () => {
                               : `${eachHour.temp_f}°F`}
                           </span>
                         </div>
-                      )
+                      );
                     }
                     // Return null for hours that have already passed
-                    return null
-                  })
+                    return null;
+                  });
                 }
                 // Return null for days other than the first day
-                return null
+                return null;
               })}
           </ul>
         </div>
@@ -232,8 +243,9 @@ const Weather = () => {
           Content to render when showHourlyRain is true
         </div>
       ) : null}
+    </div>}
     </>
-  )
-}
+  );
+};
 
-export default Weather
+export default Weather;
