@@ -42,6 +42,7 @@ body {
   top: 40px;
   right: 130px;
   fill: rgb(96, 157, 187);
+  background-color: white;
 }
 .form__group.small:hover {
   cursor: pointer;
@@ -200,17 +201,6 @@ body {
   &:invalid {
     box-shadow: none;
   }
-}
-
-.search-icon-active {
-  position: absolute;
-  top: 0;
-  width: 50px;
-  transition: all 0.3s ease;
-}
-.search-icon-active:hover {
-  cursor: pointer;
-  box-shadow: 0 0 8px rgb(163, 195, 244);
 }
 
 .min-max-temps {
