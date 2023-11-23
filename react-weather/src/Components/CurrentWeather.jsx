@@ -14,8 +14,8 @@ const CurrentWeather = ({ weatherData, location, isCelsius }) => {
         <div className='current-weather-container'>
           <p>
             {isCelsius
-              ? `${weatherData.current.temp_c}°C`
-              : `${weatherData.current.temp_f}°F`}{' '}
+              ? `${Math.floor(weatherData.current.temp_c)}°C`
+              : `${Math.floor(weatherData.current.temp_f)}°F`}{' '}
             - {weatherData.current.condition.text}
           </p>
           <img

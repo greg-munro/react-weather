@@ -169,13 +169,13 @@ const Weather = () => {
                               <div className='min-max-temps'>
                                 <span className='min-temp'>
                                   {isCelsius
-                                    ? `${day.day.mintemp_c}°C`
-                                    : `${day.day.mintemp_f}°F`}
+                                    ? `${Math.floor(day.day.mintemp_c)}°C`
+                                    : `${Math.floor(day.day.mintemp_f)}°F`}
                                 </span>
                                 <span className='max-temp'>
                                   {isCelsius
-                                    ? `${day.day.maxtemp_c}°C`
-                                    : `${day.day.maxtemp_f}°F`}
+                                    ? `${Math.floor(day.day.maxtemp_c)}°C`
+                                    : `${Math.floor(day.day.maxtemp_f)}°F`}
                                 </span>
                               </div>
                             </li>

@@ -62,7 +62,7 @@ const WindChart = ({ weatherData }) => {
           },
           formatter: function (params) {
             // Display tooltip with "mph" after the value
-            return `${params[0].name}: ${params[0].value}mph`;
+            return `${params[0].name}: ${Math.floor(params[0].value)}mph`;
           },
         },
         series: [
