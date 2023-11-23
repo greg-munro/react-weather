@@ -113,6 +113,7 @@ const Weather = () => {
       <LocationInputForm
         handleSubmit={handleSubmit}
         handleReturn={handleReturn}
+        weatherData={weatherData}
       />
       {weatherData && (
         <div className='weather-body'>
