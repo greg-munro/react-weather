@@ -22,7 +22,6 @@ const Weather = () => {
   const [isCelsius, setIsCelsius] = useState(true);
   const [error, setError] = useState(null);
 
-
   const API_KEY = import.meta.env.VITE_REACT_APP_WEATHER_API_KEY;
 
   const handleSubmit = () => {
