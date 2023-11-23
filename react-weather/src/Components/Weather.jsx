@@ -22,7 +22,7 @@ const Weather = () => {
   const [isCelsius, setIsCelsius] = useState(true)
   const [error, setError] = useState(null)
 
-  const API_KEY = '237c55e13ccd467290e170801231411'
+  const API_KEY = import.meta.env.VITE_REACT_APP_WEATHER_API_KEY;
 
   const handleSubmit = () => {
     const userSearch = document.querySelector('input').value
@@ -87,7 +87,7 @@ const Weather = () => {
           setError('Location not found. Please enter a valid location.');
         });
     }
-  }, [location, showRainfall]);
+  }, [location]);
 
   return (
     <>
