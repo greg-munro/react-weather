@@ -83,6 +83,11 @@ body {
   margin: 7px;
 }
 
+.forecast-selector {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 .hourly-container {
   display: flex;
   width: 65vw;

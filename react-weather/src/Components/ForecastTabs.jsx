@@ -3,23 +3,26 @@ import PropTypes from 'prop-types';
 
 const ForecastTabs = ({ handleConditionsClick, handleRainfallClick, handleWindClick }) => {
   return (
-    <Tabs colorScheme="blue"> {/* Use the 'unstyled' variant to provide custom styling */}
-      <TabList>
+    <Tabs> {}
+      <TabList >
         <Tab
           onClick={handleConditionsClick}
           _selected={{ color: 'white', bg: 'gray.400', borderBottomWidth: '2px', borderTopRadius: '8px' }}
+          _hover={{ bg: 'blue.600', color: 'white', borderBottomWidth: '2px', borderTopRadius: '8px' }}
         >
           Conditions
         </Tab>
         <Tab
           onClick={handleRainfallClick}
           _selected={{ color: 'white', bg: 'gray.400', borderBottomWidth: '2px', borderTopRadius: '8px' }}
+          _hover={{ bg: 'blue.600', color: 'white', borderBottomWidth: '2px', borderTopRadius: '8px' }}
         >
           Precipitation
         </Tab>
         <Tab
           onClick={handleWindClick}
           _selected={{ color: 'white', bg: 'gray.400', borderBottomWidth: '2px', borderTopRadius: '8px' }}
+          _hover={{ bg: 'blue.600', color: 'white', borderBottomWidth: '2px', borderTopRadius: '8px' }}
         >
           Wind
         </Tab>

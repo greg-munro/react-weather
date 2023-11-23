@@ -114,17 +114,20 @@ const Weather = () => {
 
           {weatherData && (
             <>
+            <div className='forecast-selector'>
+
+            <DailyHourlySelector
+                  handleDailyClick={handleDailyClick}
+                  handleHourlyClick={handleHourlyClick}
+                  dailyView={dailyView}
+                />
+
               <Stack align='center' direction='row'>
                 <span>C°</span>
                 <Switch size='md' onChange={handleMetricClick} />
                 <span>F°</span>
               </Stack>
-              <div className='forecast-selector'>
-                <DailyHourlySelector
-                  handleDailyClick={handleDailyClick}
-                  handleHourlyClick={handleHourlyClick}
-                  dailyView={dailyView}
-                />
+
               </div>
             </>
           )}

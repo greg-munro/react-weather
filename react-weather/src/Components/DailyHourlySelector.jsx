@@ -10,14 +10,15 @@ const DailyHourlySelector = ({ handleDailyClick, handleHourlyClick, dailyView}) 
                     as={Button}
                     rightIcon={<ChevronDownIcon />}
                     colorScheme='blue'
+                    bg='gray.400'
                   >
                     {dailyView ? 'Daily' : 'Hourly'}
                   </MenuButton>
-                  <MenuList>
-                    <MenuItem onClick={() => handleDailyClick('daily')}>
+                  <MenuList bg='gray.400'>
+                    <MenuItem bg='gray.400' color='black' _hover={{ bg: 'blue.700', color: 'white' }} onClick={() => handleDailyClick('daily')}>
                       Daily
                     </MenuItem>
-                    <MenuItem onClick={() => handleHourlyClick('hourly')}>
+                    <MenuItem bg='gray.400' color='black' _hover={{ bg: 'blue.700', color: 'white' }}  onClick={() => handleHourlyClick('hourly')}>
                       Hourly
                     </MenuItem>
                   </MenuList>
