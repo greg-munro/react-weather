@@ -156,6 +156,7 @@ body {
   transition: border-color 0.2s;
   color: #485367;
   font-size: 1.7rem;
+  margin-left: 15px;
 
   &::placeholder {
     color: transparent;
