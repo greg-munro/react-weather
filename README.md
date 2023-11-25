@@ -1,4 +1,4 @@
-# Weather App
+# Weather App 🌤️
 
 - [Live demo](https://whatstheweatherlike.vercel.app/)
 
