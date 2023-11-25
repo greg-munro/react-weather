@@ -23,6 +23,7 @@ This is a simple weather application built with React & Vite. It allows users to
    git clone https://github.com/your-username/weather-app.git
 
 2. Install dependencies:
+   ```bash
    cd weather-app
-    npm install
+   npm install
 
