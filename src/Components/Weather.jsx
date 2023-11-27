@@ -182,7 +182,7 @@ const Weather = () => {
 
           {weatherData && hourlyView && (
             <>
-            <div className='forecast-container'>
+              <div className='forecast-container'>
                 <DailyHourlySelector
                   handleDailyClick={handleDailyClick}
                   handleHourlyClick={handleHourlyClick}
