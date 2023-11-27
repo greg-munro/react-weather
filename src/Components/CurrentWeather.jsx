@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 const CurrentWeather = ({ weatherData, location, isCelsius }) => {
   return (
-    <div>
+    <div className='current-weather-container'>
       {weatherData && (
         <p className='current-weather-location'>
           {location.charAt(0).toUpperCase() + location.slice(1)},{' '}
