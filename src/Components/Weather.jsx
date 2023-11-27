@@ -84,7 +84,7 @@ const Weather = () => {
     if (location !== '') {
       axios
         .get(
-          `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`
+          `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`
         )
         .then((response) => {
           console.log('weatherData:', response.data);

@@ -95,9 +95,10 @@ body {
 
 .forecast-days-container {
   display: flex;
-  width: 65vw;
+  max-width: 65vw;
   justify-content: space-evenly;
   margin: 50px 0;
+  overflow: auto;
 }
 
 .forecast-days-container li {
@@ -134,13 +135,11 @@ body {
 #rainfallChart {
   width: 700px;
   height: 500px;
-  margin: 0 auto;
   margin-top: 50px;
 }
 #windChart {
   width: 700px;
   height: 500px;
-  margin: 0 auto;
   margin-top: 50px;
 }
 .search-icon {
@@ -236,6 +235,8 @@ body {
   flex-direction: column;
   align-items: center;
   color: white;
+  height: 100vh;
+  width: 75vw;
 }
 
 body {
