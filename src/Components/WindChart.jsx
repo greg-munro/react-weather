@@ -1,11 +1,10 @@
-import { useEffect } from 'react'
-import * as echarts from 'echarts'
-import PropTypes from 'prop-types'
+import { useEffect } from 'react';
+import * as echarts from 'echarts';
+import PropTypes from 'prop-types';
+
 
 const WindChart = ({ weatherData }) => {
-
   useEffect(() => {
-  
     if (weatherData) {
       const xAxis = [];
       const yAxis = [];
@@ -16,53 +15,64 @@ const WindChart = ({ weatherData }) => {
         });
         xAxis.push(dayOfWeek);
         yAxis.push(day.day.maxwind_mph);
-      })
+      });
 
-      const windChart = echarts.init(document.getElementById('windChart'))
+      const windChart = echarts.init(document.getElementById('windChart'), null, {
+        renderer: 'canvas',
+        width: 'auto',
+        height: 'auto',
+      });
+
       const option = {
         title: {
           text: 'Maximum windspeeds',
           textStyle: {
-            color: 'white'
-          }
+            color: 'white',
+          },
         },
         toolbox: {
           feature: {
-            dataView: {},
+            dataView: {
+              iconStyle: {
+                color: 'white', 
+              },
+            },
             saveAsImage: {
-              pixelRatio: 2
-            }
-          }
+              pixelRatio: 4,
+              iconStyle: {
+                color: 'white', 
+              },
+            },
+          },
         },
         xAxis: {
           type: 'category',
           data: xAxis,
           name: 'Day',
           nameTextStyle: {
-            color: 'white'
+            color: 'white',
           },
           axisLabel: {
-            color: 'white'
-          }
+            color: 'white',
+          },
         },
         yAxis: {
           type: 'value',
           name: 'Mph',
           nameTextStyle: {
-            color: 'white'
+            color: 'white',
           },
           axisLabel: {
-            color: 'white'
-          }
+            color: 'white',
+          },
         },
         tooltip: {
-          trigger: 'axis', // Display tooltip when hovering over the series
+          trigger: 'axis',
           axisPointer: {
-            type: 'cross', // Display a crosshair
+            type: 'cross',
           },
           formatter: function (params) {
-            // Display tooltip with "mph" after the value
-            return `${params[0].name}: ${Math.floor(params[0].value)}mph`;
+            return `${params[0].name}: ${(params[0].value)}mph`;
           },
         },
         series: [
@@ -73,25 +83,25 @@ const WindChart = ({ weatherData }) => {
               return idx * 10;
             },
             lineStyle: {
-              color: 'orange', 
+              color: 'orange',
             },
-          }
-        ]
+          },
+        ],
       };
-      windChart.setOption(option)
+
+      windChart.setOption(option);
+
       return () => {
         windChart.dispose();
       };
     }
-  }, [weatherData, location])
-
-
+  }, [weatherData]);
 
   return <div id='windChart'></div>;
-}
+};
 
 WindChart.propTypes = {
   weatherData: PropTypes.object.isRequired,
-}
+};
 
-export default WindChart
+export default WindChart;

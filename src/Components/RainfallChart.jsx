@@ -61,7 +61,7 @@ const RainfallChart = ({ weatherData }) => {
           },
           formatter: function (params) {
             // Display tooltip with "mph" after the value
-            return `${params[0].name}: ${Math.floor(params[0].value)}mm`;
+            return `${params[0].name}: ${(params[0].value)}mm`;
           },
         },
         series: [
