@@ -17,8 +17,6 @@ const HourlyRainfallChart = ({ weatherData }) => {
 
       const yAxis = firstDay.hour.map((eachHour) => eachHour.precip_mm);
 
-      console.log('x:', xAxis, 'y:', yAxis);
-
       // Initialize ECharts and set options
       const rainChart = echarts.init(document.getElementById('hourlyRainfallChart'));
       const option = {

@@ -31,6 +31,6 @@ const CurrentWeather = ({ weatherData, location, isCelsius }) => {
 CurrentWeather.propTypes = {
   weatherData: PropTypes.object,
   location: PropTypes.string,
-  isCelsius: PropTypes.boolean
+  isCelsius: PropTypes.bool
 }
 export default CurrentWeather

@@ -16,7 +16,6 @@ const RainfallChart = ({ weatherData }) => {
         xAxis.push(dayOfWeek);
         yAxis.push(day.day.totalprecip_mm);
       });
-      console.log('x:', xAxis, 'y:', yAxis);
 
       // Initialize ECharts and set options
       const rainChart = echarts.init(document.getElementById('rainfallChart'));

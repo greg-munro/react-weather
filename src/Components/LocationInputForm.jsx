@@ -1,18 +1,17 @@
+import { useState } from 'react'
 import { IconButton } from '@chakra-ui/react'
 import { ArrowForwardIcon, Search2Icon } from '@chakra-ui/icons'
 import PropTypes from 'prop-types'
 
 const LocationInputForm = ({ handleSubmit, handleReturn, weatherData }) => {
-  const searchClass = 'form__group field small'
-  const formClass = 'form__group field'
-
   const handleSearchIconClick = () => {
-    console.log('Hello m8')
-  };
+    const form = document.querySelector('.form__group_searched')
+    form.classList.remove('form__group_searched')
+    form.classList.add('form__group_renewed')
+  }
 
   return (
-    // prev class was 'form__group field'
-    <div className={weatherData ? 'form__group_searched' : 'form__group field' }>
+    <div className={weatherData ? 'form__group_searched' : 'form__group field'}>
       <input
         type='input'
         className='form__field'
@@ -32,9 +31,9 @@ const LocationInputForm = ({ handleSubmit, handleReturn, weatherData }) => {
         fontSize='20px'
         icon={weatherData ? <Search2Icon /> : <ArrowForwardIcon />}
         onClick={() => {
-          handleSubmit();
+          handleSubmit()
           if (weatherData) {
-            handleSearchIconClick();
+            handleSearchIconClick()
           }
         }}
       />

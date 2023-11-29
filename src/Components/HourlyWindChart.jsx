@@ -6,7 +6,7 @@ const HourlyWindChart = ({ weatherData }) => {
   useEffect(() => {
     if (weatherData) {
       const firstDay = weatherData.forecast.forecastday[0];
-      console.log('first', firstDay)
+
       const xAxis = firstDay.hour.map((eachHour) => {
         const dateObject = new Date(eachHour.time);
         const formattedTime = dateObject.toLocaleTimeString('en-US', {
@@ -17,8 +17,6 @@ const HourlyWindChart = ({ weatherData }) => {
       });
 
       const yAxis = firstDay.hour.map((eachHour) => eachHour.wind_mph);
-
-      console.log('x:', xAxis, 'y:', yAxis);
 
       // Initialize ECharts and set options
       const rainChart = echarts.init(document.getElementById('hourlyWindChart'));
