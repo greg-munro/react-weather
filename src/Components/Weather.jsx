@@ -8,6 +8,8 @@ import WindChart from './WindChart';
 import { Switch, Stack } from '@chakra-ui/react';
 import Clouds from './Clouds';
 import DailyHourlySelector from './DailyHourlySelector';
+import HourlyRainfallChart from './HourlyRainfallChart'
+import HourlyWindChart from './HourlyWindChart'
 import Loader from './Loader';
 import { use } from 'echarts';
 
@@ -256,13 +258,13 @@ const Weather = () => {
                 </>
               )}
               {weatherData && hourlyView && showHourlyRain ? (
-                <div className='test'>
-                  Content to render when showHourlyRain is true
+                <div>
+                <HourlyRainfallChart weatherData={weatherData} />
                 </div>
               ) : null}
               {weatherData && hourlyView && showHourlyWind ? (
-                <div className='test'>
-                  Content to render when showHourlyWind is true
+                <div>
+                 <HourlyWindChart weatherData={weatherData} />
                 </div>
               ) : null}
             </div>
