@@ -161,8 +161,16 @@ const Weather = () => {
                       <span>F°</span>
                     </Stack>
                   </div>
-                  {showRainfall && <RainfallChart weatherData={weatherData} />}
-                  {showWind && <WindChart weatherData={weatherData} />}
+                  {showRainfall && 
+                  <div>
+                  <RainfallChart weatherData={weatherData} />
+                  </div>
+                  }
+                  {showWind && 
+                  <div>
+                  <WindChart weatherData={weatherData} />
+                  </div>
+                  }
                   {weatherData.forecast &&
                     weatherData.forecast.forecastday &&
                     showConditions && (

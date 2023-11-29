@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import * as echarts from 'echarts';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 const RainfallChart = ({ weatherData }) => {
-
   useEffect(() => {
     // Check if weatherData is available
     if (weatherData) {
-      const xAxis = [];
-      const yAxis = [];
+      const xAxis = []
+      const yAxis = []
       // Iterate over forecastday and push data to xAxis and yAxis
       weatherData.forecast.forecastday.forEach((day) => {
         const dateObject = new Date(day.date);
@@ -18,7 +17,7 @@ const RainfallChart = ({ weatherData }) => {
         xAxis.push(dayOfWeek);
         yAxis.push(day.day.totalprecip_mm);
       });
-      console.log('x:', xAxis, 'y:', yAxis)
+      console.log('x:', xAxis, 'y:', yAxis);
 
       // Initialize ECharts and set options
       const rainChart = echarts.init(document.getElementById('rainfallChart'));
@@ -37,22 +36,21 @@ const RainfallChart = ({ weatherData }) => {
           data: xAxis,
           name: 'Day',
           nameTextStyle: {
-            color: 'white'
+            color: 'white',
           },
           axisLabel: {
-            color: 'white'
+            color: 'white',
           },
-
         },
         yAxis: {
           type: 'value',
           name: 'Milimeters',
           nameTextStyle: {
-            color: 'white'
+            color: 'white',
           },
           axisLabel: {
-            color: 'white'
-          }
+            color: 'white',
+          },
         },
         tooltip: {
           trigger: 'axis', // Display tooltip when hovering over the series
@@ -60,7 +58,7 @@ const RainfallChart = ({ weatherData }) => {
             type: 'cross', // Display a crosshair
           },
           formatter: function (params) {
-            // Display tooltip with "mph" after the value
+            // Display tooltip with "mm" after the value
             return `${params[0].name}: ${(params[0].value)}mm`;
           },
         },
@@ -69,10 +67,10 @@ const RainfallChart = ({ weatherData }) => {
             data: yAxis,
             type: 'line',
             lineStyle: {
-              color: 'pink', 
+              color: 'pink',
             },
             areaStyle: {},
-            smooth: true
+            smooth: true,
           },
         ],
       };
@@ -83,13 +81,13 @@ const RainfallChart = ({ weatherData }) => {
         rainChart.dispose();
       };
     }
-  }, []);
+  }, [weatherData]);
 
   return <div id='rainfallChart'></div>;
 };
 
 RainfallChart.propTypes = {
-  weatherData: PropTypes.func.isRequired,
+  weatherData: PropTypes.object.isRequired,
 };
 
 export default RainfallChart;
