@@ -90,11 +90,13 @@ const Weather = () => {
   const handleHourlyRainClick = () => {
     setShowHourlyRain(true);
     setShowHourlyWind(false)
+    setShowHourlyConditions(false);
   };
 
   const handleHourlyWindClick = () => {
     setShowHourlyWind(true)
     setShowHourlyRain(false);
+    setShowHourlyConditions(false);
   }
 
   useEffect(() => {
