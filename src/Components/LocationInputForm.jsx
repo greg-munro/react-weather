@@ -1,17 +1,20 @@
-import { useState } from 'react'
-import { IconButton } from '@chakra-ui/react'
-import { ArrowForwardIcon, Search2Icon } from '@chakra-ui/icons'
-import PropTypes from 'prop-types'
+import { useState } from 'react';
+import { IconButton } from '@chakra-ui/react';
+import { ArrowForwardIcon, Search2Icon } from '@chakra-ui/icons';
+import PropTypes from 'prop-types';
+import '../App.css'
 
 const LocationInputForm = ({ handleSubmit, handleReturn, weatherData }) => {
+  const [searchBarStatus, setSearchBarStatus] = useState(true);
+
   const handleSearchIconClick = () => {
-    const form = document.querySelector('.form__group_searched')
-    form.classList.remove('form__group_searched')
-    form.classList.add('form__group_renewed')
-  }
+    setSearchBarStatus((prev) => !prev);
+  };
+
+  const formClassName = `form__group_${searchBarStatus ? 'searched' : 'renewed'}`;
 
   return (
-    <div className={weatherData ? 'form__group_searched' : 'form__group field'}>
+    <div className={weatherData ? formClassName : 'form__group field'}>
       <input
         type='input'
         className='form__field'
@@ -31,19 +34,19 @@ const LocationInputForm = ({ handleSubmit, handleReturn, weatherData }) => {
         fontSize='20px'
         icon={weatherData ? <Search2Icon /> : <ArrowForwardIcon />}
         onClick={() => {
-          handleSubmit()
+          handleSubmit();
           if (weatherData) {
-            handleSearchIconClick()
+            handleSearchIconClick();
           }
         }}
       />
     </div>
-  )
-}
+  );
+};
 
 LocationInputForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleReturn: PropTypes.func.isRequired,
-}
+};
 
-export default LocationInputForm
+export default LocationInputForm;
