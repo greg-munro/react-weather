@@ -9,6 +9,7 @@ import { Switch, Stack } from '@chakra-ui/react';
 import Clouds from './Clouds';
 import DailyHourlySelector from './DailyHourlySelector';
 import Loader from './Loader';
+import { use } from 'echarts';
 
 const Weather = () => {
   const [location, setLocation] = useState('');
@@ -18,6 +19,7 @@ const Weather = () => {
   const [showRainfall, setShowRainfall] = useState(false);
   const [showConditions, setShowConditions] = useState(true);
   const [showHourlyRain, setShowHourlyRain] = useState(false);
+  const [showHourlyWind, setShowHourlyWind] = useState(false)
   const [showWind, setShowWind] = useState(false);
   const [isCelsius, setIsCelsius] = useState(true);
   const [error, setError] = useState(null);
@@ -79,7 +81,13 @@ const Weather = () => {
 
   const handleHourlyRainClick = () => {
     setShowHourlyRain(true);
+    setShowHourlyWind(false)
   };
+
+  const handleHourlyWindClick = () => {
+    setShowHourlyWind(true)
+    setShowHourlyRain(false);
+  }
 
   useEffect(() => {
     if (location !== '') {
@@ -198,8 +206,8 @@ const Weather = () => {
                     />
                     <ForecastTabs
                       handleConditionsClick={handleConditionsClick}
-                      handleRainfallClick={handleRainfallClick}
-                      handleWindClick={handleWindClick}
+                      handleRainfallClick={handleHourlyRainClick}
+                      handleWindClick={handleHourlyWindClick}
                     />
                     <Stack align='center' direction='row'>
                       <span>C°</span>
@@ -244,6 +252,11 @@ const Weather = () => {
               {weatherData && hourlyView && showHourlyRain ? (
                 <div className='test'>
                   Content to render when showHourlyRain is true
+                </div>
+              ) : null}
+              {weatherData && hourlyView && showHourlyWind ? (
+                <div className='test'>
+                  Content to render when showHourlyWind is true
                 </div>
               ) : null}
             </div>

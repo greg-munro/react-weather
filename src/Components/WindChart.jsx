@@ -33,15 +33,10 @@ const WindChart = ({ weatherData }) => {
         toolbox: {
           feature: {
             dataView: {
-              iconStyle: {
-                color: 'white', 
-              },
+             show: true,
             },
             saveAsImage: {
               pixelRatio: 4,
-              iconStyle: {
-                color: 'white', 
-              },
             },
           },
         },

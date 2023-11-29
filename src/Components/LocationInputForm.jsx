@@ -25,7 +25,7 @@ const LocationInputForm = ({ handleSubmit, handleReturn, weatherData }) => {
         colorScheme='blue'
         aria-label='Done'
         fontSize='20px'
-        icon={weatherData ? <Search2Icon onClick={console.log('search clicked')}/> : <ArrowForwardIcon />}
+        icon={weatherData ? <Search2Icon /> : <ArrowForwardIcon />}
         onClick={handleSubmit}
       />
     </div>
