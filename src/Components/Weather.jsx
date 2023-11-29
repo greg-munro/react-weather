@@ -18,6 +18,7 @@ const Weather = () => {
   const [hourlyView, setHourlyView] = useState(false);
   const [showRainfall, setShowRainfall] = useState(false);
   const [showConditions, setShowConditions] = useState(true);
+  const [showHourlyConditions, setShowHourlyConditions] = useState(true);
   const [showHourlyRain, setShowHourlyRain] = useState(false);
   const [showHourlyWind, setShowHourlyWind] = useState(false)
   const [showWind, setShowWind] = useState(false);
@@ -79,6 +80,11 @@ const Weather = () => {
     setIsCelsius((prev) => !prev);
   };
 
+  const handleHourlyConditionsClick = () => {
+    setShowHourlyConditions(true);
+    setShowHourlyWind(false)
+    setShowHourlyRain(false);
+  };
   const handleHourlyRainClick = () => {
     setShowHourlyRain(true);
     setShowHourlyWind(false)
@@ -205,7 +211,7 @@ const Weather = () => {
                       dailyView={dailyView}
                     />
                     <ForecastTabs
-                      handleConditionsClick={handleConditionsClick}
+                      handleConditionsClick={handleHourlyConditionsClick}
                       handleRainfallClick={handleHourlyRainClick}
                       handleWindClick={handleHourlyWindClick}
                     />
@@ -215,7 +221,7 @@ const Weather = () => {
                       <span>F°</span>
                     </Stack>
                   </div>
-                  <ul className='hourly-container'>
+                 {showHourlyConditions && <ul className='hourly-container'>
                     {weatherData.forecast &&
                       weatherData.forecast.forecastday.map((day, index) => {
                         if (index === 0) {
@@ -246,7 +252,7 @@ const Weather = () => {
                         // Return null for days other than the first day
                         return null;
                       })}
-                  </ul>
+                  </ul>}
                 </>
               )}
               {weatherData && hourlyView && showHourlyRain ? (
