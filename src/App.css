@@ -160,7 +160,7 @@ body {
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
-  color: #485367;
+  color: #273051;
   font-size: 1.7rem;
   margin-left: 15px;
 
@@ -173,6 +173,18 @@ body {
     cursor: text;
     top: 25%;
   }
+}
+
+.form__group_searched {
+  position: absolute;
+  right: 0;
+  top: 0
+}
+.form__group_searched input{
+  display: none;
+}
+.form__group_searched label {
+  display: none;
 }
 
 .form__label {

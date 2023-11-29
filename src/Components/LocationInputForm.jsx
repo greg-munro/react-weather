@@ -5,9 +5,14 @@ import PropTypes from 'prop-types'
 const LocationInputForm = ({ handleSubmit, handleReturn, weatherData }) => {
   const searchClass = 'form__group field small'
   const formClass = 'form__group field'
+
+  const handleSearchIconClick = () => {
+    console.log('Hello m8')
+  };
+
   return (
     // prev class was 'form__group field'
-    <div className={weatherData ? searchClass : formClass}>
+    <div className={weatherData ? 'form__group_searched' : 'form__group field' }>
       <input
         type='input'
         className='form__field'
@@ -26,7 +31,12 @@ const LocationInputForm = ({ handleSubmit, handleReturn, weatherData }) => {
         aria-label='Done'
         fontSize='20px'
         icon={weatherData ? <Search2Icon /> : <ArrowForwardIcon />}
-        onClick={handleSubmit}
+        onClick={() => {
+          handleSubmit();
+          if (weatherData) {
+            handleSearchIconClick();
+          }
+        }}
       />
     </div>
   )

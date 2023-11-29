@@ -8,7 +8,6 @@ const RainfallChart = ({ weatherData }) => {
     if (weatherData) {
       const xAxis = []
       const yAxis = []
-      // Iterate over forecastday and push data to xAxis and yAxis
       weatherData.forecast.forecastday.forEach((day) => {
         const dateObject = new Date(day.date);
         const dayOfWeek = dateObject.toLocaleDateString('en-US', {
