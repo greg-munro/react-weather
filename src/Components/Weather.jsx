@@ -37,62 +37,81 @@ const Weather = () => {
     }
     setError(null);
   };
-
   const handleReturn = (event) => {
     if (event.key === 'Enter') {
       handleSubmit();
     }
+  };
+  const handleMetricClick = () => {
+    setIsCelsius((prev) => !prev);
   };
 
   const handleConditionsClick = () => {
     setShowConditions(true);
     setShowRainfall(false);
     setShowWind(false);
-  };
+    setShowHourlyConditions(false)
+    setShowHourlyRain(false)
+    setShowHourlyWind(false)
 
+  };
   const handleDailyClick = () => {
     setDailyView(true);
+    setShowConditions(true)
     setHourlyView(false);
     setShowRainfall(false);
+    setShowWind(false)
+    setShowHourlyRain(false)
+    setShowHourlyWind(false)
   };
-
   const handleHourlyClick = () => {
     setHourlyView(true);
+    setShowHourlyConditions(true)
     setDailyView(false);
     setShowRainfall(false);
+    setShowWind(false)
+    setShowHourlyRain(false)
+    setShowHourlyWind(false)
   };
-
   const handleRainfallClick = () => {
     setShowRainfall(true);
     setShowConditions(false);
     setShowWind(false);
+    setShowHourlyConditions(false)
+    setShowHourlyRain(false)
+    setShowHourlyWind(false)
   };
-
   const handleWindClick = () => {
     setShowWind(true);
     setShowConditions(false);
     setShowRainfall(false);
+    setShowHourlyConditions(false)
+    setShowHourlyRain(false)
+    setShowHourlyWind(false)
   };
-
-  const handleMetricClick = () => {
-    setIsCelsius((prev) => !prev);
-  };
-
   const handleHourlyConditionsClick = () => {
     setShowHourlyConditions(true);
     setShowHourlyWind(false)
     setShowHourlyRain(false);
+    setShowConditions(false);
+    setShowRainfall(false);
+    setShowWind(false);
   };
   const handleHourlyRainClick = () => {
     setShowHourlyRain(true);
     setShowHourlyWind(false)
     setShowHourlyConditions(false);
+    setShowConditions(false);
+    setShowRainfall(false);
+    setShowWind(false);
   };
-
   const handleHourlyWindClick = () => {
     setShowHourlyWind(true)
     setShowHourlyRain(false);
     setShowHourlyConditions(false);
+    setShowConditions(false);
+    setShowRainfall(false);
+    setShowWind(false);
   }
 
   useEffect(() => {
