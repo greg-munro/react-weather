@@ -1,45 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import RainfallChart from './RainfallChart';
-import LocationInputForm from './LocationInputForm';
-import CurrentWeather from './CurrentWeather';
-import ForecastTabs from './ForecastTabs';
-import WindChart from './WindChart';
-import { Switch, Stack } from '@chakra-ui/react';
-import Clouds from './Clouds';
-import DailyHourlySelector from './DailyHourlySelector';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import RainfallChart from './RainfallChart'
+import LocationInputForm from './LocationInputForm'
+import CurrentWeather from './CurrentWeather'
+import ForecastTabs from './ForecastTabs'
+import WindChart from './WindChart'
+import { Switch, Stack } from '@chakra-ui/react'
+import Clouds from './Clouds'
+import DailyHourlySelector from './DailyHourlySelector'
 import HourlyRainfallChart from './HourlyRainfallChart'
 import HourlyWindChart from './HourlyWindChart'
-import Loader from './Loader';
-import { use } from 'echarts';
+import Loader from './Loader'
+import { use } from 'echarts'
 
 const Weather = () => {
-  const [location, setLocation] = useState('');
-  const [weatherData, setWeatherData] = useState(null);
-  const [dailyView, setDailyView] = useState(true);
-  const [hourlyView, setHourlyView] = useState(false);
-  const [showRainfall, setShowRainfall] = useState(false);
-  const [showConditions, setShowConditions] = useState(true);
-  const [showHourlyConditions, setShowHourlyConditions] = useState(true);
-  const [showHourlyRain, setShowHourlyRain] = useState(false);
+  const [location, setLocation] = useState('')
+  const [weatherData, setWeatherData] = useState(null)
+  const [dailyView, setDailyView] = useState(true)
+  const [hourlyView, setHourlyView] = useState(false)
+  const [showRainfall, setShowRainfall] = useState(false)
+  const [showConditions, setShowConditions] = useState(true)
+  const [showHourlyConditions, setShowHourlyConditions] = useState(true)
+  const [showHourlyRain, setShowHourlyRain] = useState(false)
   const [showHourlyWind, setShowHourlyWind] = useState(false)
-  const [showWind, setShowWind] = useState(false);
-  const [isCelsius, setIsCelsius] = useState(true);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [showWind, setShowWind] = useState(false)
+  const [isCelsius, setIsCelsius] = useState(true)
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
 
-  const API_KEY = import.meta.env.VITE_REACT_APP_WEATHER_API_KEY;
+  const API_KEY = import.meta.env.VITE_REACT_APP_WEATHER_API_KEY
 
   const handleSubmit = () => {
-    const userSearch = document.querySelector('input').value;
+    const userSearch = document.querySelector('input').value
     if (userSearch.length > 0) {
-      setLocation(userSearch);
+      setLocation(userSearch)
     }
     setError(null);
   };
   const handleReturn = (event) => {
     if (event.key === 'Enter') {
-      handleSubmit();
+      handleSubmit()
     }
   };
   const handleMetricClick = () => {
@@ -90,7 +90,7 @@ const Weather = () => {
     setShowHourlyWind(false)
   };
   const handleHourlyConditionsClick = () => {
-    setShowHourlyConditions(true);
+    setShowHourlyConditions(true)
     setShowHourlyWind(false)
     setShowHourlyRain(false);
     setShowConditions(false);
@@ -98,7 +98,7 @@ const Weather = () => {
     setShowWind(false);
   };
   const handleHourlyRainClick = () => {
-    setShowHourlyRain(true);
+    setShowHourlyRain(true)
     setShowHourlyWind(false)
     setShowHourlyConditions(false);
     setShowConditions(false);
@@ -116,39 +116,38 @@ const Weather = () => {
 
   useEffect(() => {
     if (location !== '') {
-      setLoading(true);
+      setLoading(true)
       axios
         .get(
           `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${location}&days=7`
         )
         .then((response) => {
-          setWeatherData(response.data);
+          setWeatherData(response.data)
         })
         .catch((error) => {
-          console.error('Error fetching weather data:', error);
-          setWeatherData(null);
-          setError('Location not found. Please enter a valid location.');
+          console.error('Error fetching weather data:', error)
+          setWeatherData(null)
+          setError('Location not found. Please enter a valid location.')
         })
         .finally(() => {
-          setLoading(false);
-        });
+          setLoading(false)
+        })
     }
-  }, [location]);
+  }, [location])
 
   return (
     <>
-        <>
-          <Clouds />
-          <LocationInputForm
-            handleSubmit={handleSubmit}
-            handleReturn={handleReturn}
-            weatherData={weatherData}
-          />
-          {
-            loading ? (
-        <Loader />
-      ) : 
-            weatherData && (
+      <>
+        <Clouds />
+        <LocationInputForm
+          handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
+          weatherData={weatherData}
+        />
+        {loading ? (
+          <Loader />
+        ) : (
+          weatherData && (
             <div className='weather-body'>
               {error && <p style={{ color: 'red' }}>{error}</p>}
               <CurrentWeather
@@ -175,16 +174,16 @@ const Weather = () => {
                       <span>F°</span>
                     </Stack>
                   </div>
-                  {showRainfall && 
-                  <div>
-                  <RainfallChart weatherData={weatherData} />
-                  </div>
-                  }
-                  {showWind && 
-                  <div>
-                  <WindChart weatherData={weatherData} />
-                  </div>
-                  }
+                  {showRainfall && (
+                    <div>
+                      <RainfallChart weatherData={weatherData} />
+                    </div>
+                  )}
+                  {showWind && (
+                    <div>
+                      <WindChart weatherData={weatherData} />
+                    </div>
+                  )}
                   {weatherData.forecast &&
                     weatherData.forecast.forecastday &&
                     showConditions && (
@@ -195,18 +194,24 @@ const Weather = () => {
                           </div>
                         )}
                         {weatherData.forecast.forecastday.map((day) => {
-                          const dateObject = new Date(day.date);
-                          const dayOfWeek = dateObject.toLocaleDateString('en-US', {
-                            weekday: 'short',
-                          });
-                          const dayOfMonth = dateObject.getDate();
+                          const dateObject = new Date(day.date)
+                          const dayOfWeek = dateObject.toLocaleDateString(
+                            'en-US',
+                            {
+                              weekday: 'short',
+                            }
+                          )
+                          const dayOfMonth = dateObject.getDate()
 
                           return (
                             <div className='daily-weather' key={day.date}>
                               <ul>
                                 <li>
                                   {`${dayOfWeek} ${dayOfMonth}`}
-                                  <img src={day.day.condition.icon} alt='icon' />
+                                  <img
+                                    src={day.day.condition.icon}
+                                    alt='icon'
+                                  />
                                   <div className='min-max-temps'>
                                     <span className='min-temp'>
                                       {isCelsius
@@ -222,7 +227,7 @@ const Weather = () => {
                                 </li>
                               </ul>
                             </div>
-                          );
+                          )
                         })}
                       </div>
                     )}
@@ -247,55 +252,61 @@ const Weather = () => {
                       <span>F°</span>
                     </Stack>
                   </div>
-                 {showHourlyConditions && <ul className='hourly-container'>
-                    {weatherData.forecast &&
-                      weatherData.forecast.forecastday.map((day, index) => {
-                        if (index === 0) {
-                          const currentTime = new Date();
-                          return day.hour.map((eachHour, index) => {
-                            const hourTime = new Date(eachHour.time);
-                            // Show only upcoming hours
-                            if (hourTime > currentTime) {
-                              const hourOnly = eachHour.time
-                                .split(' ')[1]
-                                .slice(0, 5);
-                              return (
-                                <div className='hour-block' key={index}>
-                                  <li>{hourOnly}</li>
-                                  <img src={eachHour.condition.icon} alt='icon' />
-                                  <span>
-                                    {isCelsius
-                                      ? `${eachHour.temp_c}°C`
-                                      : `${eachHour.temp_f}°F`}
-                                  </span>
-                                </div>
-                              );
-                            }
-                            // Return null for hours that have already passed
-                            return null;
-                          });
-                        }
-                        // Return null for days other than the first day
-                        return null;
-                      })}
-                  </ul>}
+                  {showHourlyConditions && (
+                    <ul className='hourly-container'>
+                      {weatherData.forecast &&
+                        weatherData.forecast.forecastday.map((day, index) => {
+                          if (index === 0) {
+                            const currentTime = new Date()
+                            return day.hour.map((eachHour, index) => {
+                              const hourTime = new Date(eachHour.time)
+                              // Show only upcoming hours
+                              if (hourTime > currentTime) {
+                                const hourOnly = eachHour.time
+                                  .split(' ')[1]
+                                  .slice(0, 5)
+                                return (
+                                  <div className='hour-block' key={index}>
+                                    <li>{hourOnly}</li>
+                                    <img
+                                      src={eachHour.condition.icon}
+                                      alt='icon'
+                                    />
+                                    <span>
+                                      {isCelsius
+                                        ? `${eachHour.temp_c}°C`
+                                        : `${eachHour.temp_f}°F`}
+                                    </span>
+                                  </div>
+                                )
+                              }
+                              // Return null for hours that have already passed
+                              return null
+                            })
+                          }
+                          // Return null for days other than the first day
+                          return null
+                        })}
+                    </ul>
+                  )}
                 </>
               )}
               {weatherData && hourlyView && showHourlyRain ? (
                 <div>
-                <HourlyRainfallChart weatherData={weatherData} />
+                  <HourlyRainfallChart weatherData={weatherData} />
                 </div>
               ) : null}
               {weatherData && hourlyView && showHourlyWind ? (
                 <div>
-                 <HourlyWindChart weatherData={weatherData} />
+                  <HourlyWindChart weatherData={weatherData} />
                 </div>
               ) : null}
             </div>
-          )}
-        </>
+          )
+        )}
+      </>
     </>
-  );
-};
+  )
+}
 
-export default Weather;
+export default Weather
