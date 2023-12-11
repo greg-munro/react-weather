@@ -45,7 +45,6 @@ const Weather = () => {
   const handleMetricClick = () => {
     setIsCelsius((prev) => !prev);
   };
-
   const handleConditionsClick = () => {
     setShowConditions(true);
     setShowRainfall(false);
@@ -53,7 +52,6 @@ const Weather = () => {
     setShowHourlyConditions(false)
     setShowHourlyRain(false)
     setShowHourlyWind(false)
-
   };
   const handleDailyClick = () => {
     setDailyView(true);

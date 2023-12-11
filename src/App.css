@@ -459,3 +459,44 @@ body {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 896px) 
+  and (-webkit-device-pixel-ratio: 2) {
+    .forecast-days-container, .hourly-container {
+      flex-direction: column;
+      min-height: 500px;
+      width: 300px;
+    }
+    .weather-body {
+      width: 100vw;
+    }
+    .current-weather-container {
+      width: 95vw;
+    }
+    .form__group_searched {
+      top: 5%;
+      right: 5%;
+    }
+    .forecast-container {
+      width: 90vw;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+    .chakra-tabs {
+      margin: 20px;
+    }
+    .forecast-days-container, .hourly-container {
+      font-size: 2rem;
+    }
+    .form__group {
+      width: 90%;
+    }
+    .form__group_renewed {
+      width: 70%;
+    }
+  }
