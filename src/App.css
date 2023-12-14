@@ -178,7 +178,7 @@ body {
 .form__group_searched {
   position: absolute;
   right: 17%;
-  top: 10%;
+  top: 25%;
 }
 .form__group_searched input{
   display: none;
