@@ -7,7 +7,15 @@ const HourlyWindChart = ({ weatherData }) => {
     if (weatherData) {
       const firstDay = weatherData.forecast.forecastday[0];
 
-      const xAxis = firstDay.hour.map((eachHour) => {
+      // Filter out past hours
+      const currentDate = new Date();
+      const currentHour = currentDate.getHours();
+      const filteredHours = firstDay.hour.filter((eachHour) => {
+        const hour = new Date(eachHour.time).getHours();
+        return hour >= currentHour;
+      });
+
+      const xAxis = filteredHours.map((eachHour) => {
         const dateObject = new Date(eachHour.time);
         const formattedTime = dateObject.toLocaleTimeString('en-US', {
           hour: '2-digit',
@@ -16,7 +24,8 @@ const HourlyWindChart = ({ weatherData }) => {
         return formattedTime;
       });
 
-      const yAxis = firstDay.hour.map((eachHour) => eachHour.wind_mph);
+      const yAxis = filteredHours.map((eachHour) => eachHour.wind_mph);
+
 
       // Initialize ECharts and set options
       const rainChart = echarts.init(document.getElementById('hourlyWindChart'));
